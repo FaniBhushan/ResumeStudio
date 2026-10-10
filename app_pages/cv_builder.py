@@ -63,6 +63,7 @@ RENDERCV_THEME_LABELS = {
     "opal": "Opal",
     "sb2nov": "SB2Nov",
 }
+IS_STREAMLIT_CLOUD = st.context.headers.get("host", "").split(":", 1)[0].casefold().endswith(".streamlit.app")
 
 
 def strings(value: Any) -> list[str]:
@@ -680,9 +681,12 @@ with st.sidebar:
         st.rerun()
 if import_notice := st.session_state.pop("_import_notice", None):
     st.success(import_notice)
-tab_profile, tab_roles, tab_more, tab_templates, tab_ats, tab_files = st.tabs(
-    ["Profile", "Experience", "Other sections", "Templates", "ATS Checker", "Files"]
+tabs = st.tabs(
+    ["Profile", "Experience", "Other sections", "Templates", "ATS Checker"]
+    + ([] if IS_STREAMLIT_CLOUD else ["Files"])
 )
+tab_profile, tab_roles, tab_more, tab_templates, tab_ats = tabs[:5]
+tab_files = tabs[5] if not IS_STREAMLIT_CLOUD else None
 
 with tab_profile:
     left, right = st.columns(2)
@@ -1009,21 +1013,22 @@ with tab_ats:
                         st.markdown(f"**Suggested text**\n\n{rewrite['suggested_text']}")
                         st.caption(rewrite["rationale"])
 
-with tab_files:
-    file_category = st.segmented_control("Your files", ["Markdown", "CVs"], default="Markdown", key="file_category")
-    if file_category == "Markdown":
-        markdown_files = [path for path in list(DATA_OUTPUT.rglob("*.md")) + list(RESUME_OUTPUT.rglob("*.md")) if "template_previews" not in path.parts]
-        render_file_downloads(markdown_files, "markdown", "text/markdown")
-    else:
-        cv_files = [path for path in list(RESUME_OUTPUT.rglob("*.yaml")) + list(RESUME_OUTPUT.rglob("*.yml")) + list(RESUME_OUTPUT.rglob("*.pdf")) if "template_previews" not in path.parts]
-        existing_cv_files = sorted((path for path in cv_files if path.is_file()), key=lambda item: (item.suffix.casefold(), item.name.casefold()))
-        if not existing_cv_files:
-            st.info("No CV files yet. Save your CV or generate a PDF to populate this list.")
-        for index, path in enumerate(existing_cv_files):
-            col, action = st.columns([4, 1])
-            col.write(path.name)
-            mime = "application/pdf" if path.suffix.casefold() == ".pdf" else "application/yaml"
-            action.download_button("Download", data=path.read_bytes(), file_name=path.name, mime=mime, key=f"download_cv_{index}_{path.name}", width="stretch")
+if tab_files is not None:
+    with tab_files:
+        file_category = st.segmented_control("Your files", ["Markdown", "CVs"], default="Markdown", key="file_category")
+        if file_category == "Markdown":
+            markdown_files = [path for path in list(DATA_OUTPUT.rglob("*.md")) + list(RESUME_OUTPUT.rglob("*.md")) if "template_previews" not in path.parts]
+            render_file_downloads(markdown_files, "markdown", "text/markdown")
+        else:
+            cv_files = [path for path in list(RESUME_OUTPUT.rglob("*.yaml")) + list(RESUME_OUTPUT.rglob("*.yml")) + list(RESUME_OUTPUT.rglob("*.pdf")) if "template_previews" not in path.parts]
+            existing_cv_files = sorted((path for path in cv_files if path.is_file()), key=lambda item: (item.suffix.casefold(), item.name.casefold()))
+            if not existing_cv_files:
+                st.info("No CV files yet. Save your CV or generate a PDF to populate this list.")
+            for index, path in enumerate(existing_cv_files):
+                col, action = st.columns([4, 1])
+                col.write(path.name)
+                mime = "application/pdf" if path.suffix.casefold() == ".pdf" else "application/yaml"
+                action.download_button("Download", data=path.read_bytes(), file_name=path.name, mime=mime, key=f"download_cv_{index}_{path.name}", width="stretch")
 
 suggestion = st.session_state.get("_suggestion")
 if suggestion:
@@ -1056,7 +1061,10 @@ if save_col.button("Save Markdown + YAML", type="primary", width="stretch"):
         try:
             with st.spinner("Saving your CV…"):
                 yaml_path, _, _ = save_current()
-            st.success("Markdown notes and CV YAML saved. Download them from Files.")
+            if IS_STREAMLIT_CLOUD:
+                st.success("CV saved. The hosted app disables shared file downloads; generate a PDF to download your CV.")
+            else:
+                st.success("Markdown notes and CV YAML saved. Download them from Files.")
         except (OSError, ValueError, yaml.YAMLError) as exc:
             st.error(f"Could not save the CV: {exc}")
 
@@ -1073,7 +1081,7 @@ if generate_col.button("Generate PDF", width="stretch"):
                 pdf_path = render_cv(yaml_path, output_dir)
             st.session_state["_pdf_path"] = str(pdf_path)
             st.session_state["_rendered_hash"] = draft_hash()
-            st.success("PDF generated. Download it from Files.")
+            st.success("PDF generated. Download it using the button below.")
         except (OSError, RuntimeError, ValueError, yaml.YAMLError) as exc:
             st.error(str(exc))
 

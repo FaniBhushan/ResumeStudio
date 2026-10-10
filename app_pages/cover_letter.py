@@ -198,6 +198,9 @@ with st.container(horizontal=True):
     ):
         try:
             write_text_atomic(DATA_OUTPUT / "cover-letters" / filename, letter_text.rstrip() + "\n")
-            st.success("Saved. Download it from CV Builder → Files → Markdown.")
+            if st.context.headers.get("host", "").split(":", 1)[0].casefold().endswith(".streamlit.app"):
+                st.success("Saved. Use Download Markdown above to download this cover letter.")
+            else:
+                st.success("Saved. Download it from CV Builder → Files → Markdown.")
         except OSError as exc:
             st.error(f"Could not save the cover letter: {exc}")
