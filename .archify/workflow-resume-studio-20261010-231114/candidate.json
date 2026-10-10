@@ -1,0 +1,259 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Resume Studio Workflow",
+    "subtitle": "From career notes to reviewed application documents",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-resume-studio-20261010-231114/resume-studio-workflow.html"
+  },
+  "lanes": [
+    {
+      "id": "person",
+      "label": "Candidate"
+    },
+    {
+      "id": "workspace",
+      "label": "Resume Studio"
+    },
+    {
+      "id": "ai",
+      "label": "Optional AI actions",
+      "variant": "exception"
+    },
+    {
+      "id": "files",
+      "label": "Documents + letters"
+    }
+  ],
+  "phases": [
+    {
+      "id": "start",
+      "label": "Start + source",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "author",
+      "label": "Edit + review",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "finish",
+      "label": "Save + deliver",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "groups": [
+    {
+      "id": "ai_review",
+      "label": "Optional AI and user review",
+      "lane": "ai",
+      "fromCol": 3,
+      "toCol": 3,
+      "variant": "security"
+    }
+  ],
+  "mainPath": [
+    "candidate",
+    "workspace_app",
+    "source",
+    "edit",
+    "save",
+    "rendercv",
+    "files_view"
+  ],
+  "nodes": [
+    {
+      "id": "candidate",
+      "lane": "person",
+      "col": 0,
+      "type": "external",
+      "label": "Candidate",
+      "sublabel": "choose + review",
+      "width": 100
+    },
+    {
+      "id": "workspace_app",
+      "lane": "workspace",
+      "col": 1,
+      "type": "frontend",
+      "label": "Open Resume Studio",
+      "sublabel": "CV Builder or Cover Letter",
+      "width": 130
+    },
+    {
+      "id": "source",
+      "lane": "workspace",
+      "col": 2,
+      "type": "frontend",
+      "label": "Choose CV source",
+      "sublabel": "YAML, PDF, DOCX, TXT",
+      "width": 120
+    },
+    {
+      "id": "edit",
+      "lane": "workspace",
+      "col": 3,
+      "type": "frontend",
+      "label": "Review + edit CV",
+      "sublabel": "Profile, roles, achievements",
+      "width": 130
+    },
+    {
+      "id": "save",
+      "lane": "workspace",
+      "col": 4,
+      "type": "backend",
+      "label": "Save CV",
+      "sublabel": "Markdown + YAML",
+      "width": 115
+    },
+    {
+      "id": "files_view",
+      "lane": "files",
+      "col": 5,
+      "type": "frontend",
+      "label": "Deliver CV",
+      "sublabel": "PDF + source files",
+      "width": 120
+    },
+    {
+      "id": "ai_action",
+      "lane": "ai",
+      "col": 3,
+      "type": "backend",
+      "label": "Selected AI CLI",
+      "sublabel": "CV + letter drafts",
+      "width": 125
+    },
+    {
+      "id": "cover_page",
+      "lane": "files",
+      "col": 1,
+      "type": "frontend",
+      "label": "Cover letter",
+      "sublabel": "CV + job info",
+      "width": 115
+    },
+    {
+      "id": "rendercv",
+      "lane": "files",
+      "col": 4,
+      "type": "external",
+      "label": "RenderCV",
+      "sublabel": "CV preview / PDF",
+      "width": 115
+    }
+  ],
+  "edges": [
+    {
+      "id": "open-app",
+      "from": "candidate",
+      "to": "workspace_app",
+      "label": "launch",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "choose-source",
+      "from": "workspace_app",
+      "to": "source",
+      "label": "choose source",
+      "role": "main"
+    },
+    {
+      "id": "edit-cv",
+      "from": "source",
+      "to": "edit",
+      "label": "review fields",
+      "role": "main"
+    },
+    {
+      "id": "save-files",
+      "from": "edit",
+      "to": "save",
+      "label": "save CV",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "generate-pdf",
+      "from": "save",
+      "to": "rendercv",
+      "label": "render YAML",
+      "role": "main"
+    },
+    {
+      "id": "pdf-output",
+      "from": "rendercv",
+      "to": "files_view",
+      "label": "PDF + previews",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "invoke-ai",
+      "from": "edit",
+      "to": "ai_action",
+      "label": "optional AI",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "open-letter",
+      "from": "workspace_app",
+      "to": "cover_page",
+      "label": "cover letter",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "letter-context",
+      "from": "cover_page",
+      "to": "ai_action",
+      "label": "draft letter via AI CLI",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "letter-review",
+      "from": "ai_action",
+      "to": "cover_page",
+      "label": "return draft",
+      "role": "return"
+    },
+    {
+      "id": "letter-deliver",
+      "from": "cover_page",
+      "to": "files_view",
+      "label": "save / download",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Customize prompts",
+      "items": [
+        "Edit task templates in prompts/*.txt",
+        "The app reads saved wording on the next AI action",
+        "Keep each documented $name placeholder"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Useful details",
+      "items": [
+        "Scanned PDFs are not supported; OCR is not included",
+        "ATS mode is optional and off by default",
+        "AI drafts are reviewed before applying"
+      ]
+    }
+  ]
+}

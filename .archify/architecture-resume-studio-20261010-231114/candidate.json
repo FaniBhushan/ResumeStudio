@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Resume Studio High Level Architecture",
+    "subtitle": "Local authoring, customizable AI prompts, and document generation",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html"
+  },
+  "components": [
+    {
+      "id": "candidate",
+      "type": "external",
+      "label": "Candidate",
+      "sublabel": "single-user workspace",
+      "pos": [
+        50,
+        270
+      ],
+      "size": [
+        154,
+        82
+      ]
+    },
+    {
+      "id": "streamlit",
+      "type": "frontend",
+      "label": "Streamlit App",
+      "sublabel": "page navigation + UI",
+      "pos": [
+        400,
+        270
+      ],
+      "size": [
+        190,
+        86
+      ]
+    },
+    {
+      "id": "pages",
+      "type": "frontend",
+      "label": "CV + Cover Letter Pages",
+      "sublabel": "forms, review, save, download",
+      "pos": [
+        650,
+        110
+      ],
+      "size": [
+        220,
+        100
+      ]
+    },
+    {
+      "id": "importers",
+      "type": "backend",
+      "label": "Local Document Readers",
+      "sublabel": "PDF text, DOCX, TXT",
+      "pos": [
+        650,
+        410
+      ],
+      "size": [
+        220,
+        84
+      ]
+    },
+    {
+      "id": "processes",
+      "type": "backend",
+      "label": "CV + AI Actions",
+      "sublabel": "imports, suggestions, ATS, letters",
+      "pos": [
+        990,
+        110
+      ],
+      "size": [
+        220,
+        100
+      ]
+    },
+    {
+      "id": "prompts",
+      "type": "database",
+      "label": "Prompt Templates",
+      "sublabel": "editable prompts/*.txt",
+      "pos": [
+        990,
+        410
+      ],
+      "size": [
+        220,
+        90
+      ]
+    },
+    {
+      "id": "local_cli",
+      "type": "external",
+      "label": "Selected Local AI CLI",
+      "sublabel": "Codex / Gemini / Claude",
+      "pos": [
+        1320,
+        110
+      ],
+      "size": [
+        210,
+        92
+      ]
+    },
+    {
+      "id": "rendercv",
+      "type": "external",
+      "label": "RenderCV CLI",
+      "sublabel": "template preview + PDF",
+      "pos": [
+        1250,
+        410
+      ],
+      "size": [
+        210,
+        84
+      ]
+    },
+    {
+      "id": "local_files",
+      "type": "database",
+      "label": "Local Files",
+      "sublabel": "data/app/ · resumes/generated/",
+      "pos": [
+        1400,
+        270
+      ],
+      "size": [
+        230,
+        100
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Local Resume Studio Workspace",
+      "wraps": [
+        "streamlit",
+        "pages",
+        "importers",
+        "processes",
+        "prompts",
+        "rendercv",
+        "local_files"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-ui",
+      "from": "candidate",
+      "to": "streamlit",
+      "label": "interacts with local app",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ui-pages",
+      "from": "streamlit",
+      "to": "pages",
+      "label": "routes to selected page"
+    },
+    {
+      "id": "page-import",
+      "from": "pages",
+      "to": "importers",
+      "label": "extract uploaded text",
+      "variant": "dashed"
+    },
+    {
+      "id": "page-process",
+      "from": "pages",
+      "to": "processes",
+      "label": "explicit AI action"
+    },
+    {
+      "id": "prompt-load",
+      "from": "prompts",
+      "to": "processes",
+      "label": "read + fill placeholders per request",
+      "variant": "security"
+    },
+    {
+      "id": "process-cli",
+      "from": "processes",
+      "to": "local_cli",
+      "label": "prompt + selected content"
+      ,"labelDy": -52
+    },
+    {
+      "id": "cli-return",
+      "from": "local_cli",
+      "to": "pages",
+      "label": "draft / structured result for review",
+      "variant": "emphasis"
+    },
+    {
+      "id": "page-storage",
+      "from": "pages",
+      "to": "local_files",
+      "label": "save Markdown + YAML"
+    },
+    {
+      "id": "page-render",
+      "from": "pages",
+      "to": "rendercv",
+      "label": "generate preview or PDF"
+    },
+    {
+      "id": "yaml-input",
+      "from": "local_files",
+      "to": "rendercv",
+      "label": "saved YAML input",
+      "variant": "dashed"
+    },
+    {
+      "id": "render-output",
+      "from": "rendercv",
+      "to": "local_files",
+      "label": "PDF + preview artifacts",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Review stays with the user",
+      "items": [
+        "AI output appears as a draft or proposed fields",
+        "The provider does not edit saved Markdown or YAML directly"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Prompt customization",
+      "items": [
+        "Edit task instructions in prompts/*.txt",
+        "The app reloads the template for the next AI request",
+        "Keep the documented $name placeholders"
+      ]
+    }
+  ]
+}

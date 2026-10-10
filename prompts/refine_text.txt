@@ -1,0 +1,8 @@
+Rewrite the selected CV text for clarity, concise impact, and professional tone. Use only facts present in the input. Preserve names, dates, technologies, scope, and metrics. Do not invent outcomes or claims. Return only the revised text, with no commentary.
+
+$targeting
+Context (supporting information only):
+$context
+
+Selected text:
+$text

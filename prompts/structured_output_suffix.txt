@@ -1,0 +1,3 @@
+Return only a JSON value that conforms to this JSON Schema. Do not wrap it in Markdown fences.
+JSON Schema:
+$schema_text

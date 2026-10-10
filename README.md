@@ -13,6 +13,7 @@ Resume Studio is a local Streamlit app for turning career notes into polished, e
 - **Build a CV:** edit your profile, summary, experience, achievements, education, certifications, skills, and links.
 - **Start from an existing CV:** import RenderCV YAML, selectable-text PDF, DOCX, or TXT into editable fields. Scanned PDFs and legacy `.doc` files are not supported.
 - **Refine with AI:** choose Codex CLI, Gemini CLI, or Claude Code for imports, wording suggestions, achievement grouping, and job-description alignment. Suggestions are reviewable before they change your draft.
+- **Customize AI prompts:** edit the task-specific text files in `prompts/`; changes are loaded the next time the action runs.
 - **Check ATS alignment:** optionally compare your CV with a job description and see matching terms, gaps, and targeted suggestions. ATS mode is off by default.
 - **Preview and generate:** preview RenderCV templates with sample content, then use RenderCV to generate and download your CV PDF from the saved YAML.
 - **Write a cover letter:** start with an existing CV or a description of your background, add a job description if useful, and edit the resulting draft.
@@ -63,6 +64,7 @@ The app writes its own career notes under `data/app/` and generated YAML and res
 app.py                         Streamlit entry point and navigation
 app_pages/                     CV Builder and Cover Letter views
 src/cv_builder/                Import, storage, provider, and RenderCV logic
+prompts/                       Editable AI prompt templates
 assets/                        Resume Studio logo and visual assets
 data/                          Existing source notes and local app data
 resumes/                       Existing CV inputs and generated outputs

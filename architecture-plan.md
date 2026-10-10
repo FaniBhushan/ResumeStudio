@@ -1,6 +1,6 @@
 # Resume Studio architecture
 
-Status: MVP implemented. Follow-on writing tools are planned.
+Status: MVP implemented. AI prompt templates are editable in `prompts/`. Follow-on writing tools are planned.
 
 ## Scope
 
@@ -16,6 +16,7 @@ The Markdown files are reusable career source material. The generated YAML is th
 | --- | --- | --- |
 | UI | Streamlit | Forms, import review, AI suggestion review, template previews, navigable download lists |
 | Application logic | Python | Extract uploaded document text, map form fields to CV structure, and orchestrate actions |
+| Prompt templates | Plain-text files in `prompts/` | Keep task instructions editable outside the Python modules |
 | Persistence | PyYAML and Markdown files | Write YAML and user-authored notes |
 | AI adapter | Local CLI subprocesses | Route prompts and structured output through the selected Codex CLI, Gemini CLI, or Claude Code |
 | File readers | pypdf and python-docx | Extract selectable PDF text, DOCX paragraphs/tables, and UTF-8 text |
@@ -23,30 +24,35 @@ The Markdown files are reusable career source material. The generated YAML is th
 
 ```mermaid
 flowchart TD
-    USER[User] --> UI[Streamlit form]
-    USER -->|Existing PDF/DOCX/TXT| EXTRACT[Local text extraction]
-    EXTRACT -->|Extracted text| LLM[Selected local AI CLI]
-    LLM -->|Proposed fields| UI
-    UI --> SERVICE[Python application functions]
-    SERVICE --> MD[Markdown notes in data/app]
-    SERVICE --> YAML[Generated RenderCV YAML]
-    UI -->|AI action| LLM
-    LLM --> SUGGESTION[Suggestion for review]
-    SUGGESTION --> UI
-    UI -->|Choose template| PREVIEW[RenderCV template preview]
-    PREVIEW --> UI
-    YAML -->|Generate action| RENDERCV[RenderCV CLI]
-    RENDERCV --> OUTPUT[PDF and page previews]
-    OUTPUT --> UI
+    USER[User] --> UI[Streamlit app<br/>CV Builder and Cover Letter]
+    UI -->|Upload PDF, DOCX, or TXT| EXTRACT[Local document readers]
+    EXTRACT -->|Extracted text| APP[Python application actions]
+    UI -->|Edit fields or click an action| APP
+    EDITOR[Editable prompt templates<br/>prompts/] -->|Read on each AI request| APP
+    APP -->|Task prompt plus user content| CLI[Selected local AI CLI]
+    CLI -->|Draft or structured response| REVIEW[Review in Streamlit]
+    REVIEW -->|Accept or edit| APP
+    APP -->|Write| NOTES[Markdown notes<br/>data/app/]
+    APP -->|Write| YAML[RenderCV YAML<br/>resumes/generated/]
+    APP -->|Template preview or PDF action| RENDERCV[RenderCV CLI]
+    YAML -->|Saved input| RENDERCV
+    RENDERCV -->|PDF and preview files| OUTPUT[Generated files<br/>resumes/generated/]
+    OUTPUT -->|Preview or download| UI
+    USER -->|Customize task instructions| EDITOR
 ```
 
 There is no separate web API, database, or job queue in the MVP. Subprocesses run synchronously from explicit buttons, with a spinner, timeout, and captured error message. This fits the local single-user workflow. A durable job worker can be added if the app becomes multi-user or jobs need to continue after the browser disconnects.
+
+## Architecture and workflow diagrams
+
+- [High-level architecture](.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html)
+- [User workflow](.archify/workflow-resume-studio-20261010-231114/resume-studio-workflow.html)
 
 The current provider selector runs each vendor's local CLI and uses its existing sign-in. Direct LLM API-key integrations are deferred: they would add app-managed secret storage, model and billing controls, and separate provider adapters. They become useful if Resume Studio is hosted for multiple users or needs provider choices independent of locally installed CLIs. Keep the provider adapter boundary so API transports can be added later without changing CV workflows.
 
 ## User workflow
 
-1. On first launch, load `resumes/Fani_Bhushan_CV.yaml`. On later launches, use the most recently saved YAML under `resumes/generated/` when one exists. The sidebar has one **Load an existing CV** uploader for YAML/YML, PDF, DOCX, and TXT. RenderCV YAML loads directly.
+1. On first launch, load the starter CV YAML. On later launches, use the most recently saved YAML under `resumes/generated/` when one exists. The sidebar has one **Load an existing CV** uploader for YAML/YML, PDF, DOCX, and TXT. RenderCV YAML loads directly.
 2. For a PDF, DOCX, or TXT upload, local readers extract text and the selected AI CLI proposes values for the editor fields. Review and correct the loaded fields; the uploaded document is not saved by the app.
 3. Edit profile, summary, roles, education, certifications, skills, languages, links, and achievements in the Streamlit tabs.
 4. Optionally turn on **ATS mode** in the sidebar and paste a target job description. ATS mode is off by default. Use the ATS Checker tab to review keyword alignment, evidence gaps, formatting concerns, and targeted rewrite suggestions. While enabled, every text refinement uses that job description as context.
@@ -55,6 +61,7 @@ The current provider selector runs each vendor's local CLI and uses its existing
 7. Choose a RenderCV template to preview it with sample CV content, even when your draft is blank. Your information is not used in the sample preview; the selected template is used for PDF generation.
 8. Use **Generate PDF**. The app saves first, runs RenderCV, and offers the result from the Files view.
 9. Open **Files** and switch between **Markdown** and **CVs** to see downloadable lists. The UI displays artifact names and download actions, not local output locations.
+10. To customize AI behavior, edit the relevant `.txt` template under `prompts/`. The app reads prompt files when an AI action runs, so the next request uses the saved wording without requiring a restart. Keep the `$name` placeholders intact.
 
 Ordinary editing and PDF generation do not require an AI CLI. Importing PDF/DOCX/TXT, categorizing new or changed achievements, ATS checks, and optional wording refinement require the selected CLI and its local authentication. In ATS mode the target job description is passed as context to both the checker and every text refinement. The extracted CV text is passed to the configured local CLI; the user reviews proposed field values before saving. An uploaded photo is copied to the ignored `data/app/` folder and referenced by a relative path in generated YAML.
 
@@ -67,6 +74,7 @@ app.py                         # Streamlit UI and form-to-CV mapping
 src/cv_builder/storage.py      # YAML/Markdown persistence
 src/cv_builder/importing.py    # Local PDF, DOCX, and TXT text extraction
 src/cv_builder/processes.py    # AI CLI adapters, import/refinement, and RenderCV subprocesses
+prompts/*.txt                  # Customizable AI task prompt templates
 data/                          # existing career notes; preserved
 data/app/profile.md            # app-authored profile/skills; gitignored
 data/app/profile-photo-*.png   # uploaded CV photos; gitignored
@@ -98,7 +106,7 @@ Writes use temporary files followed by an atomic rename. Each generated CV has i
 
 The MVP offers refinement for the summary, role achievement text, and the combined achievement field. It classifies the combined achievements into technical, leadership, and product groups through a separate structured Codex action. With ATS mode enabled, every refinement also receives the target job description and is instructed to use only supported overlap. The application:
 
-1. Passes the selected text and small amount of role context to the selected CLI using a fixed prompt and argument list, without a shell.
+1. Loads the matching UTF-8 text template from `prompts/` for each AI action, fills its named placeholders with the selected text and limited context, then passes the completed prompt to the selected CLI using an argument list, without a shell.
 2. Uses structured output where needed and a three- or four-minute timeout depending on the operation. Codex runs in a read-only sandbox, Gemini runs in plan mode, and Claude Code runs with built-in tools disabled. Prompts ask every provider to preserve supplied names, dates, technologies, and metrics, and forbid adding unsupported facts.
 3. Displays the returned text beside the original. The provider never edits YAML or Markdown directly.
 4. Applies the text only after the user clicks **Apply suggestion**. **Reject suggestion** leaves the draft unchanged.
@@ -106,6 +114,12 @@ The MVP offers refinement for the summary, role achievement text, and the combin
 Achievement classification preserves each input line verbatim, assigns it to one primary category, and displays the groups for user review. Saving is blocked if achievement text has changed since the last accepted classification. The Other sections tab explains each category and gives guidance on writing concise, evidence-based achievements.
 
 Treat the output as a suggestion: prompt instructions do not guarantee factual accuracy. A missing CLI, authentication error, timeout, or empty response is shown in the app, and the manual workflow remains available.
+
+## Customizable prompts
+
+Each AI action has a plain-text template in `prompts/`: CV import, text refinement, optional job-targeted refinement context, achievement categorization, ATS review, cover letter drafting, and the JSON-output instruction used by providers without native schema support. `src/cv_builder/processes.py` reads the selected template at request time and substitutes its documented `$name` placeholders. Save a template edit and run the action again to use it; a Streamlit restart is not needed. The app's JSON schemas remain in Python because they define response fields and validation shape rather than prompt wording.
+
+Keep the placeholder names in place when customizing. User documents, career notes, and job descriptions are inserted as untrusted reference data. Prompt changes influence AI output but do not change the structured response schema or remove the app's review and validation steps.
 
 ## RenderCV flow
 
