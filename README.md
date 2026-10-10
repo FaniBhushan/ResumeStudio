@@ -6,7 +6,7 @@
 
 <p align="center">Build a thoughtful CV, tailor it to a role, and create a matching cover letter — all in one local workspace.</p>
 
-<p align="center"><a href="https://youtu.be/aEDAM6XIsAg">▶ Watch the Resume Studio video</a></p>
+<p align="center"><a href="https://youtu.be/aEDAM6XIsAg"><img src="https://img.youtube.com/vi/aEDAM6XIsAg/hqdefault.jpg" alt="Watch the Resume Studio video" width="560"></a></p>
 
 Resume Studio is a local Streamlit app for turning career notes into polished, editable application documents. It uses [RenderCV](https://rendercv.com/) to render CV PDFs from structured YAML with RenderCV's templates. Keep your experience in your own words, optionally get AI-assisted suggestions, and review every change before saving or generating a PDF.
 
