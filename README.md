@@ -88,6 +88,7 @@ RenderCV is the CV rendering engine: Resume Studio prepares the RenderCV YAML, a
 ### User workflow
 
 ![Resume Studio user workflow, including AI CLI cover letter generation and RenderCV PDF output](assets/workflow-diagram.svg)
+
 - [40-second Resume Studio video](brag-output-2026-10-10-231114/composition/renders/composition_2026-10-10_23-32-34.mp4) is the rendered launch/brag video. Its HyperFrames project and brief are in [brag-output-2026-10-10-231114](brag-output-2026-10-10-231114/).
 
 ## Run checks
