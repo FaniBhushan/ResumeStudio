@@ -30,7 +30,7 @@ git clone <repository-url>
 cd ResumeStudio
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirement.txt
+python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
@@ -71,7 +71,7 @@ assets/                        Resume Studio logo and visual assets
 data/                          Existing source notes and local app data
 resumes/                       Existing CV inputs and generated outputs
 tests/                         Provider adapter tests
-requirement.txt                Python dependencies
+requirements.txt               Python dependencies
 architecture-plan.md           Detailed architecture and implementation notes
 ```
 
