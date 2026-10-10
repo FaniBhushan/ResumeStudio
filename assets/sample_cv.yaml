@@ -1,0 +1,15 @@
+cv:
+  name: "Your Name"
+  sections: {}
+
+design:
+  theme: engineeringclassic
+
+locale:
+  language: english
+
+settings:
+  current_date: today
+  render_command:
+    output_folder: generated
+    pdf_title: NAME - CV
