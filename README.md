@@ -6,6 +6,8 @@
 
 <p align="center">Build a thoughtful CV, tailor it to a role, and create a matching cover letter — all in one local workspace.</p>
 
+<p align="center"><a href="https://youtu.be/aEDAM6XIsAg">▶ Watch the Resume Studio video</a></p>
+
 Resume Studio is a local Streamlit app for turning career notes into polished, editable application documents. It uses [RenderCV](https://rendercv.com/) to render CV PDFs from structured YAML with RenderCV's templates. Keep your experience in your own words, optionally get AI-assisted suggestions, and review every change before saving or generating a PDF.
 
 ## What you can do
@@ -74,6 +76,13 @@ architecture-plan.md           Detailed architecture and implementation notes
 ```
 
 RenderCV is the CV rendering engine: Resume Studio prepares the RenderCV YAML, applies the selected RenderCV template, and invokes RenderCV to produce the PDF.
+
+## Architecture and project video
+
+- [Architecture plan](architecture-plan.md) describes the components, data flow, local AI CLI providers, RenderCV integration, and implementation decisions.
+- [High-level architecture diagram](.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html) shows the app components and their connections.
+- [User workflow diagram](.archify/workflow-resume-studio-20261010-231114/resume-studio-workflow.html) includes CV import and RenderCV PDF generation, plus the AI CLI cover letter flow.
+- [40-second Resume Studio video](brag-output-2026-10-10-231114/composition/renders/composition_2026-10-10_23-32-34.mp4) is the rendered launch/brag video. Its HyperFrames project and brief are in [brag-output-2026-10-10-231114](brag-output-2026-10-10-231114/).
 
 ## Run checks
 

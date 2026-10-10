@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-10-10T21:28:05.255Z",
+  "specification": {
+    "path": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/candidate.json",
+    "sha256": "9bcd59807fa7f4495c24fc7a8a728f46fd565466d9404b540be878121658fb06",
+    "bytes": 5021
+  },
+  "artifact": {
+    "path": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+    "sha256": "f46cbab97249c1b988e6b654aba4706fd7efc8f089b41c0e66e86a00fb69da91",
+    "bytes": 766442
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "/Users/fanibhushan/.nvm/versions/node/v22.21.1/bin/node",
+        "/private/var/folders/fz/xkt6_kj51z3_7rdj7qsm8nz00000gn/T/skills-use-F72XCS/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/candidate.json",
+        "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "9bcd59807fa7f4495c24fc7a8a728f46fd565466d9404b540be878121658fb06",
+          "bytes": 5021
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 344,
+      "command": [
+        "/Users/fanibhushan/.nvm/versions/node/v22.21.1/bin/node",
+        "/private/var/folders/fz/xkt6_kj51z3_7rdj7qsm8nz00000gn/T/skills-use-F72XCS/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/candidate.json",
+        "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "b56ec56a-5c4c-4998-98a6-8c5e50e66b5c",
+        "ok": true,
+        "command": "deliver",
+        "type": "architecture",
+        "input": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/candidate.json",
+        "output": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+        "specification": {
+          "sha256": "9bcd59807fa7f4495c24fc7a8a728f46fd565466d9404b540be878121658fb06",
+          "bytes": 5021
+        },
+        "artifact": {
+          "sha256": "f46cbab97249c1b988e6b654aba4706fd7efc8f089b41c0e66e86a00fb69da91",
+          "bytes": 766442
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 130,
+      "command": [
+        "/Users/fanibhushan/.nvm/versions/node/v22.21.1/bin/node",
+        "/private/var/folders/fz/xkt6_kj51z3_7rdj7qsm8nz00000gn/T/skills-use-F72XCS/archify/bin/archify.mjs",
+        "check",
+        "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+        "artifact": {
+          "sha256": "f46cbab97249c1b988e6b654aba4706fd7efc8f089b41c0e66e86a00fb69da91",
+          "bytes": 766442
+        },
+        "checks": [
+          {
+            "name": "single_svg",
+            "ok": true,
+            "details": [
+              "found 1 <svg> block(s)"
+            ]
+          },
+          {
+            "name": "finite_svg",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "orthogonal_arrows",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "label_route_clearance",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_crossings",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_corridors",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "container_border_runs",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "route_rhythm",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "legend_clearance",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "metrics": {
+            "properCrossings": 0,
+            "resolvedCrossovers": 8,
+            "ambiguousCorridors": 0,
+            "arrowheadCollisions": 0,
+            "containerBorderRuns": 0,
+            "labelRouteClearanceIssues": 0,
+            "labelCanvasOverflowIssues": 0,
+            "minLabelRouteClearance": 4,
+            "desktopReadabilityIssues": 0,
+            "viewportHeightIssues": 0,
+            "minProjectedNodeTextPx": 6.334117647058823,
+            "maxBends": 4,
+            "routesOverSuggestedBends": 3,
+            "maxStretch": 1.439,
+            "routesOverSuggestedStretch": 1,
+            "minSegmentPx": 24,
+            "minInteriorSegmentPx": 28,
+            "shortSegmentCount": 0,
+            "shortEndpointSegmentCount": 0,
+            "shortInteriorSegmentCount": 0,
+            "microSegmentCount": 0
+          },
+          "suggestedLimits": {
+            "bendsPerRelationship": 2,
+            "stretch": 1.35,
+            "segmentPx": 16,
+            "microSegmentPx": 8
+          },
+          "routeReview": {
+            "crossings": [
+              {
+                "left": {
+                  "id": "page-process",
+                  "from": "pages",
+                  "to": "processes",
+                  "label": "explicit AI action",
+                  "collectionIndex": 3,
+                  "artifactIndex": 4
+                },
+                "right": {
+                  "id": "cli-return",
+                  "from": "local_cli",
+                  "to": "pages",
+                  "label": "draft / structured result for review",
+                  "collectionIndex": 6,
+                  "artifactIndex": 7
+                },
+                "point": [
+                  983.1999999999999,
+                  160
+                ],
+                "sharedNode": "pages"
+              },
+              {
+                "left": {
+                  "id": "page-process",
+                  "from": "pages",
+                  "to": "processes",
+                  "label": "explicit AI action",
+                  "collectionIndex": 3,
+                  "artifactIndex": 4
+                },
+                "right": {
+                  "id": "page-storage",
+                  "from": "pages",
+                  "to": "local_files",
+                  "label": "save Markdown + YAML",
+                  "collectionIndex": 7,
+                  "artifactIndex": 8
+                },
+                "point": [
+                  930,
+                  174
+                ],
+                "sharedNode": "pages"
+              },
+              {
+                "left": {
+                  "id": "prompt-load",
+                  "from": "prompts",
+                  "to": "processes",
+                  "label": "read + fill placeholders per request",
+                  "collectionIndex": 4,
+                  "artifactIndex": 5
+                },
+                "right": {
+                  "id": "cli-return",
+                  "from": "local_cli",
+                  "to": "pages",
+                  "label": "draft / structured result for review",
+                  "collectionIndex": 6,
+                  "artifactIndex": 7
+                },
+                "point": [
+                  1100,
+                  248.5
+                ]
+              },
+              {
+                "left": {
+                  "id": "prompt-load",
+                  "from": "prompts",
+                  "to": "processes",
+                  "label": "read + fill placeholders per request",
+                  "collectionIndex": 4,
+                  "artifactIndex": 5
+                },
+                "right": {
+                  "id": "page-storage",
+                  "from": "pages",
+                  "to": "local_files",
+                  "label": "save Markdown + YAML",
+                  "collectionIndex": 7,
+                  "artifactIndex": 8
+                },
+                "point": [
+                  1100,
+                  246
+                ]
+              },
+              {
+                "left": {
+                  "id": "prompt-load",
+                  "from": "prompts",
+                  "to": "processes",
+                  "label": "read + fill placeholders per request",
+                  "collectionIndex": 4,
+                  "artifactIndex": 5
+                },
+                "right": {
+                  "id": "page-render",
+                  "from": "pages",
+                  "to": "rendercv",
+                  "label": "generate preview or PDF",
+                  "collectionIndex": 8,
+                  "artifactIndex": 9
+                },
+                "point": [
+                  1100,
+                  386
+                ]
+              },
+              {
+                "left": {
+                  "id": "process-cli",
+                  "from": "processes",
+                  "to": "local_cli",
+                  "label": "prompt + selected content",
+                  "collectionIndex": 5,
+                  "artifactIndex": 6
+                },
+                "right": {
+                  "id": "cli-return",
+                  "from": "local_cli",
+                  "to": "pages",
+                  "label": "draft / structured result for review",
+                  "collectionIndex": 6,
+                  "artifactIndex": 7
+                },
+                "point": [
+                  1247,
+                  164.05000000000027
+                ],
+                "sharedNode": "local_cli"
+              },
+              {
+                "left": {
+                  "id": "cli-return",
+                  "from": "local_cli",
+                  "to": "pages",
+                  "label": "draft / structured result for review",
+                  "collectionIndex": 6,
+                  "artifactIndex": 7
+                },
+                "right": {
+                  "id": "page-storage",
+                  "from": "pages",
+                  "to": "local_files",
+                  "label": "save Markdown + YAML",
+                  "collectionIndex": 7,
+                  "artifactIndex": 8
+                },
+                "point": [
+                  1245.388888888889,
+                  246
+                ],
+                "sharedNode": "pages"
+              },
+              {
+                "left": {
+                  "id": "page-render",
+                  "from": "pages",
+                  "to": "rendercv",
+                  "label": "generate preview or PDF",
+                  "collectionIndex": 8,
+                  "artifactIndex": 9
+                },
+                "right": {
+                  "id": "render-output",
+                  "from": "rendercv",
+                  "to": "local_files",
+                  "label": "PDF + preview artifacts",
+                  "collectionIndex": 10,
+                  "artifactIndex": 11
+                },
+                "point": [
+                  1339.9499999999996,
+                  386
+                ],
+                "sharedNode": "rendercv"
+              }
+            ],
+            "detours": [
+              {
+                "relationship": {
+                  "id": "cli-return",
+                  "from": "local_cli",
+                  "to": "pages",
+                  "label": "draft / structured result for review",
+                  "collectionIndex": 6,
+                  "artifactIndex": 7
+                },
+                "bends": 4,
+                "stretch": 1.439
+              },
+              {
+                "relationship": {
+                  "id": "page-storage",
+                  "from": "pages",
+                  "to": "local_files",
+                  "label": "save Markdown + YAML",
+                  "collectionIndex": 7,
+                  "artifactIndex": 8
+                },
+                "bends": 3,
+                "stretch": 1
+              },
+              {
+                "relationship": {
+                  "id": "yaml-input",
+                  "from": "local_files",
+                  "to": "rendercv",
+                  "label": "saved YAML input",
+                  "collectionIndex": 9,
+                  "artifactIndex": 10
+                },
+                "bends": 3,
+                "stretch": 1
+              }
+            ]
+          },
+          "leadingSpace": {
+            "measured": true,
+            "emptyTopPx": 80,
+            "emptyTopRatio": 0.136,
+            "occupiedTop": 80,
+            "viewBoxTop": 0,
+            "canvasHeight": 588,
+            "typicalNodeHeight": 90,
+            "reviewSuggested": false
+          },
+          "desktopReadability": {
+            "budgetBasis": "recognized-declared-wide",
+            "readerContract": "declared-wide-v1",
+            "availableDiagramWidth": 1346,
+            "actualBudgetPx": 1346,
+            "actualReaderWidth": 1376,
+            "desiredReaderWidth": 1623.75,
+            "viewportCap": 1376,
+            "limit": "viewport-cap",
+            "requestedTargetPx": 7.5,
+            "requestedTargetMet": false,
+            "hardFloorPx": 6,
+            "hardFloorMet": true,
+            "minimumOwner": {
+              "kind": "edge",
+              "id": "user-ui",
+              "from": "candidate",
+              "to": "streamlit"
+            },
+            "minimumSourceTextPx": 8,
+            "minimumProjectedTextPx": 6.334117647058823,
+            "semanticTextCount": 30
+          },
+          "issues": []
+        },
+        "provenance": "current",
+        "deliveryReceiptId": "b56ec56a-5c4c-4998-98a6-8c5e50e66b5c"
+      }
+    },
+    "browser-check": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": 19,
+      "command": [
+        "/Users/fanibhushan/.nvm/versions/node/v22.21.1/bin/node",
+        "/private/var/folders/fz/xkt6_kj51z3_7rdj7qsm8nz00000gn/T/skills-use-F72XCS/archify/bin/archify.mjs",
+        "browser-check",
+        "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+        "--json",
+        "--require-provenance"
+      ],
+      "execution": "in-process",
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "browser-check",
+        "evidenceKind": "automated-browser",
+        "status": "fail",
+        "visualReview": "not-requested",
+        "provenance": "current",
+        "deliveryReceiptId": "b56ec56a-5c4c-4998-98a6-8c5e50e66b5c",
+        "artifact": {
+          "path": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+          "sha256": "f46cbab97249c1b988e6b654aba4706fd7efc8f089b41c0e66e86a00fb69da91",
+          "bytes": 766442
+        },
+        "state": {
+          "detail": "read",
+          "motion": "still"
+        },
+        "chrome": {
+          "status": "available",
+          "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        },
+        "diagnostics": [
+          {
+            "code": "viewer/browser-check-runtime",
+            "severity": "error",
+            "message": "browser-check could not complete its Chrome inspection.",
+            "subject": {
+              "artifact": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html"
+            },
+            "evidence": {
+              "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome transport: Node v22.21.1, libuv 1.51.0, darwin; pid=2424, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+            },
+            "supportedFixes": [
+              "resolve the reported Chrome inspection error, then rerun browser-check"
+            ]
+          }
+        ],
+        "containment": {
+          "status": "fail",
+          "policy": "fit-or-reader-declared-readable-vertical-scroll",
+          "viewports": []
+        },
+        "themeStates": {
+          "status": "fail",
+          "viewports": []
+        },
+        "readability": {
+          "status": "fail",
+          "minimumProjectedNodeTextPx": 6,
+          "viewports": []
+        },
+        "viewerChrome": {
+          "status": "fail",
+          "viewports": []
+        },
+        "captures": {
+          "status": "not-requested",
+          "screenshots": [],
+          "contactSheet": null
+        },
+        "sidecars": {
+          "receipt": "resume-studio-architecture.browser-check.json",
+          "files": []
+        },
+        "error": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome transport: Node v22.21.1, libuv 1.51.0, darwin; pid=2424, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      }
+    }
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/browser-check-runtime",
+      "severity": "error",
+      "message": "browser-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html"
+      },
+      "evidence": {
+        "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome transport: Node v22.21.1, libuv 1.51.0, darwin; pid=2424, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun browser-check"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.finalize.json",
+    "summaryReceipt": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "browser-check",
+  "finishedAt": "2026-10-10T21:28:05.894Z",
+  "durationMs": 638,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-unavailable"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "b56ec56a-5c4c-4998-98a6-8c5e50e66b5c",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/candidate.json",
+  "output": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+  "specification": {
+    "sha256": "9bcd59807fa7f4495c24fc7a8a728f46fd565466d9404b540be878121658fb06",
+    "bytes": 5021
+  },
+  "artifact": {
+    "sha256": "f46cbab97249c1b988e6b654aba4706fd7efc8f089b41c0e66e86a00fb69da91",
+    "bytes": 766442
+  }
+}

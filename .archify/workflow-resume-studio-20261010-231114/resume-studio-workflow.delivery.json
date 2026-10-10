@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "070cdd59-9c46-4e34-8fb3-158868cfa8ee",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/Users/fanibhushan/ResumeStudio/.archify/workflow-resume-studio-20261010-231114/candidate.json",
+  "output": "/Users/fanibhushan/ResumeStudio/.archify/workflow-resume-studio-20261010-231114/resume-studio-workflow.html",
+  "specification": {
+    "sha256": "368740f2ae657ba68cf67a3dc26d90b07564c5ea5ce2b5ddc5209c3c7800f7b2",
+    "bytes": 5420
+  },
+  "artifact": {
+    "sha256": "c45bb26d89df83b94b0350c750b944beebc273efb7a0c3d1f8f8ee306b3244b8",
+    "bytes": 762983
+  }
+}

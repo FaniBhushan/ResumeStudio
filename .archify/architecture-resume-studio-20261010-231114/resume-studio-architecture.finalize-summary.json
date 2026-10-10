@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/candidate.json",
+    "sha256": "9bcd59807fa7f4495c24fc7a8a728f46fd565466d9404b540be878121658fb06",
+    "bytes": 5021
+  },
+  "artifact": {
+    "path": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html",
+    "sha256": "f46cbab97249c1b988e6b654aba4706fd7efc8f089b41c0e66e86a00fb69da91",
+    "bytes": 766442
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "fail"
+  },
+  "failedStage": "browser-check",
+  "diagnostics": [
+    {
+      "code": "viewer/browser-check-runtime",
+      "severity": "error",
+      "message": "browser-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html"
+      },
+      "evidence": {
+        "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome transport: Node v22.21.1, libuv 1.51.0, darwin; pid=2424, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun browser-check"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.finalize.json",
+    "summaryReceipt": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/Users/fanibhushan/ResumeStudio/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.browser-check.json"
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-unavailable"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 638
+}

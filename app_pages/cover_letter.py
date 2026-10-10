@@ -60,14 +60,55 @@ with st.sidebar:
         )
     else:
         st.markdown(":material/person: **Describe your background and relevant experience**")
-        user_description = st.text_area(
-            "Describe your background and relevant experience", label_visibility="collapsed",
-            key="cover_letter_user_description",
-        height=110 if _wide_inputs else 180,
-            max_chars=50_000,
-            placeholder="Relevant experience, strengths, examples, and why this role interests you…",
-            help="Use facts you can support. The draft will use only information you provide.",
+        description_input_mode = st.segmented_control(
+            "Background description input",
+            ["Paste text", "Upload file"],
+            default="Paste text",
+            key="cover_letter_description_input_mode",
+            label_visibility="collapsed",
+            width="stretch",
         )
+        if description_input_mode == "Upload file":
+            description_file = st.file_uploader(
+                "Load your background description",
+                type=["pdf", "docx", "txt", "md"],
+                max_upload_size=20,
+                key="cover_letter_description_upload",
+                help="Text-based PDF, DOCX, TXT, or Markdown.",
+            )
+            if st.button(
+                "Load file text",
+                key="load_cover_letter_description",
+                disabled=description_file is None,
+                width="stretch",
+            ):
+                try:
+                    description_text = (
+                        extract_job_description(description_file.name, description_file.getvalue())
+                        if Path(description_file.name).suffix.casefold() == ".md"
+                        else extract_cv_text(description_file.name, description_file.getvalue())
+                    )
+                    if len(description_text) > 50_000:
+                        raise ValueError("The background description is too long. Please limit it to 50,000 characters.")
+                    st.session_state["cover_letter_user_description"] = description_text
+                    st.session_state["cover_letter_description_input_mode"] = "Paste text"
+                    st.session_state["_cover_description_file_notice"] = (
+                        f"Loaded background description from {description_file.name}. Review or edit it below."
+                    )
+                    st.rerun()
+                except (OSError, ValueError) as exc:
+                    st.error(str(exc))
+        if notice := st.session_state.pop("_cover_description_file_notice", None):
+            st.success(notice)
+        if description_input_mode == "Paste text":
+            user_description = st.text_area(
+                "Describe your background and relevant experience", label_visibility="collapsed",
+                key="cover_letter_user_description",
+                height=110 if _wide_inputs else 180,
+                max_chars=50_000,
+                placeholder="Relevant experience, strengths, examples, and why this role interests you…",
+                help="Use facts you can support. The draft will use only information you provide.",
+            )
 
     st.divider()
     use_job_description = st.toggle(
