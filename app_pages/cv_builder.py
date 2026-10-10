@@ -212,12 +212,11 @@ def imported_fields_document(fields: dict[str, Any]) -> dict[str, Any]:
 
 def initialize() -> None:
     if "_base_document" not in st.session_state:
-        saved_yaml = sorted(RESUME_OUTPUT.glob("*_CV.yaml"), key=lambda item: item.stat().st_mtime, reverse=True)
-        initial_path = saved_yaml[0] if saved_yaml else STARTER_YAML
-        try:
-            load_editor_state(load_yaml(initial_path), str(initial_path))
-        except (OSError, ValueError, yaml.YAMLError):
-            load_editor_state(load_yaml(STARTER_YAML), str(STARTER_YAML))
+        # A hosted Streamlit process may retain files from an earlier
+        # deployment, and its filesystem is shared by app sessions. Never
+        # make a saved CV the default for a new session; require users to
+        # load their own CV explicitly through the uploader.
+        load_editor_state(load_yaml(STARTER_YAML), str(STARTER_YAML))
     remove_id = st.session_state.pop("_remove_role_next", None)
     if remove_id is not None:
         ids = st.session_state.get("_role_ids", [])
