@@ -1,8 +1,6 @@
-# Local app-authored career data and generated Markdown exports
-/data/app/
-
-# Generated CV YAML, PDFs, and RenderCV intermediate files
-/resumes/generated/
+# All personal career data, imported CVs, and generated resume artifacts stay local.
+/data/
+/resumes/
 
 # Python environment and cache files
 .venv/
