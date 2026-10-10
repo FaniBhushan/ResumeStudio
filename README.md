@@ -83,9 +83,13 @@ RenderCV is the CV rendering engine: Resume Studio prepares the RenderCV YAML, a
 - [Architecture plan](architecture-plan.md) describes the components, data flow, local AI CLI providers, RenderCV integration, and implementation decisions.
 ### High-level architecture
 
+[Open the interactive architecture diagram](https://htmlpreview.github.io/?https://github.com/FaniBhushan/ResumeStudio/blob/main/.archify/architecture-resume-studio-20261010-231114/resume-studio-architecture.html)
+
 ![Resume Studio high-level architecture](assets/architecture-diagram.svg)
 
 ### User workflow
+
+[Open the interactive workflow diagram](https://htmlpreview.github.io/?https://github.com/FaniBhushan/ResumeStudio/blob/main/.archify/workflow-resume-studio-20261010-231114/resume-studio-workflow.html)
 
 ![Resume Studio user workflow, including AI CLI cover letter generation and RenderCV PDF output](assets/workflow-diagram.svg)
 
