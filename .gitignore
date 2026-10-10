@@ -1,0 +1,10 @@
+# Local app-authored career data and generated Markdown exports
+/data/app/
+
+# Generated CV YAML, PDFs, and RenderCV intermediate files
+/resumes/generated/
+
+# Python environment and cache files
+.venv/
+__pycache__/
+*.py[cod]

@@ -1,0 +1,263 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+cv:
+  name: Fani Bhushan
+  location: Berlin, Germany
+  email: bhufani@gmail.com
+  phone: "+4917684733947"
+  social_networks:
+    - network: LinkedIn
+      username: fani-bhushan
+  sections:
+    professional_summary:
+      - Software engineer with 16 years of experience in technical leadership and software development, specializing in automotive infotainment and connected car services. Led the development of a Qt/C++-based Online Media UI for MBUX and architected multi-platform connected car services for Mercedes-Benz. Seeking a leadership role to apply my expertise in technical leadership and cloud-native solutions to drive innovation.
+    experience:
+      - company: MBition GmbH
+        position: Expert Software Engineer
+        start_date: 2018-03
+        end_date: present
+        location: Berlin, Germany
+        highlights:
+          - Led the Dialog Engine integration (central embedded business logic component) for a high-priority LiquidAI NLU/ASR model POC in the US market, which successfully green-lit the project and secured a 4.5 FTEs team budget.
+          - Completed CSPO certification and served as Acting Product Owner for the Speech Assistant, leading PI planning, backlog management, capacity planning, and resolving critical blocker bug escalations.
+          - Took ownership of a critical speech container service to implement an urgent feature, managing the end-to-end implementation, FOSS compliance, and market release.
+          - Led the development of and implemented a Qt/C++-based Online Media UI application for the MBUX Infotainment system on Linux, collaborating with geographically dispersed teams.
+          - Contributing as an expert to the development of a Linux-based speech assistant using C++, Python, and Golang, leveraging Large Language Models (LLMs).
+          - Deputy Product Owner, negotiating with stakeholders, coordinating across teams, and facilitating collaboration for multiple product lines.
+          - Architected and led the development of Qt/Golang/Java-based multi-platform connected car services for Mercedes-Benz.
+          - Resolved critical bug escalations and acted as Engineering Lead and Product Owner in their absence.
+          - Mentored and coached engineering teams, driving best practices, scalability, and maintainability.
+          - Led cross-functional collaboration with product managers, cloud backend teams, and UI developers to align technical roadmaps with business objectives.
+          - Developed the Connected Services UI platform using Qt/QML and C, integrated into a Linux-based UI package.
+          - Developed multiple Qt/C++-based connected car standalone and template apps, working closely with cloud backend and HU services teams.
+      - company: Wipro Technologies
+        position: Software Technical Lead
+        start_date: 2010-05
+        end_date: 2018-01
+        location: Bangalore, India / Tokyo, Japan / Germany
+        highlights:
+          - Handled line management responsibilities for the engineering team, including career mentorship, performance evaluations, and resource planning.
+          - Led a team in the development of automotive infotainment projects using C++, including routing and route guidance components for the Navigation System.
+          - Managed a team working on a C\#-based UI testing tool, incorporating Python and Perl scripting at Panasonic Automotive System Japan.
+          - Worked on-site in Japan, collaborating with clients/stakeholders while coordinating with offshore teams.
+          - Defined engineering processes, quality standards, and best practices improving team efficiency and product reliability.
+          - Worked on firmware development for a robotic vacuum cleaner using Embedded C and RTOS.
+          - Developed firmware for a smart meter, utilizing Embedded C and RTOS.
+          - Worked on-site in Germany, participating in test drives and handling product quality discussions with clients.
+    education:
+      - institution: Gandhi Institute of Engineering And Technology
+        area: Computer Science
+        degree: Bachelors in Technology
+        start_date: 2005-07
+        end_date: 2009-05
+        location: India
+    certifications:
+      - bullet: Certified Scrum Product Owner (CSPO)
+      - bullet: Certified Professional for Software Architecture (iSAQB)
+      - bullet: Software Architecture Certification from Global Dev Experts
+    skills:
+      - label: Programming Languages
+        details: C++, C\#, Golang, Java, Python, Perl, Embedded C
+      - label: Frameworks \& UI
+        details: Qt/QML, RTOS, Docker, Containers
+      - label: Cloud \& Microservices
+        details: Microservices, Azure Cloud, gRPC
+      - label: Domains
+        details: Automotive Infotainment, Connected Car Services, Navigation Systems, Speech Assistants, LLMs (LiquidAI, ASR/NLU)
+      - label: Methodologies \& Tools
+        details: TDD, Automated Testing, GitLab CI, Azure DevOps, Agile, Scrum
+
+    languages:
+      - label: English
+        details: Fluent
+      - label: Hindi
+        details: Fluent
+      - label: German
+        details: B1
+
+design:
+  theme: engineeringclassic
+  # page:
+  #   size: us-letter
+  #   top_margin: 0.7in
+  #   bottom_margin: 0.7in
+  #   left_margin: 0.7in
+  #   right_margin: 0.7in
+  #   show_footer: true
+  #   show_top_note: true
+  # colors:
+  #   body: rgb(0, 0, 0)
+  #   name: rgb(0, 79, 144)
+  #   headline: rgb(0, 79, 144)
+  #   connections: rgb(0, 79, 144)
+  #   section_titles: rgb(0, 79, 144)
+  #   links: rgb(0, 79, 144)
+  #   footer: rgb(128, 128, 128)
+  #   top_note: rgb(128, 128, 128)
+  # typography:
+  #   line_spacing: 0.6em
+  #   alignment: justified
+  #   date_and_location_column_alignment: right
+  #   font_family:
+  #     body: Source Sans 3
+  #     name: Source Sans 3
+  #     headline: Source Sans 3
+  #     connections: Source Sans 3
+  #     section_titles: Source Sans 3
+  #   font_size:
+  #     body: 10pt
+  #     name: 30pt
+  #     headline: 10pt
+  #     connections: 10pt
+  #     section_titles: 1.4em
+  #   small_caps:
+  #     name: false
+  #     headline: false
+  #     connections: false
+  #     section_titles: false
+  #   bold:
+  #     name: true
+  #     headline: false
+  #     connections: false
+  #     section_titles: true
+  # links:
+  #   underline: false
+  #   show_external_link_icon: false
+  # header:
+  #   alignment: center
+  #   photo_width: 3.5cm
+  #   photo_position: left
+  #   photo_space_left: 0.4cm
+  #   photo_space_right: 0.4cm
+  #   space_below_name: 0.7cm
+  #   space_below_headline: 0.7cm
+  #   space_below_connections: 0.7cm
+  #   connections:
+  #     phone_number_format: national
+  #     hyperlink: true
+  #     show_icons: true
+  #     display_urls_instead_of_usernames: false
+  #     separator: ''
+  #     space_between_connections: 0.5cm
+  # header_type: connections_at_the_top
+  # section_titles:
+  #   type: with_partial_line
+  #   line_thickness: 0.5pt
+  #   space_above: 0.5cm
+  #   space_below: 0.3cm
+  # sections:
+  #   allow_page_break: true
+  #   space_between_regular_entries: 1.2em
+  #   space_between_text_based_entries: 0.3em
+  #   show_time_spans_in:
+  #     - experience
+  # entries:
+  #   date_and_location_width: 4.15cm
+  #   side_space: 0.2cm
+  #   space_between_columns: 0.1cm
+  #   allow_page_break: false
+  #   short_second_row: true
+  #   degree_width: 1cm
+  #   summary:
+  #     space_above: 0cm
+  #     space_left: 0cm
+  #   highlights:
+  #     bullet: •
+  #     nested_bullet: •
+  #     space_left: 0.15cm
+  #     space_above: 0cm
+  #     space_between_items: 0cm
+  #     space_between_bullet_and_text: 0.5em
+  # templates:
+  #   footer: '*NAME -- PAGE_NUMBER/TOTAL_PAGES*'
+  #   top_note: '*LAST_UPDATED CURRENT_DATE*'
+  #   single_date: MONTH_ABBREVIATION YEAR
+  #   date_range: START_DATE – END_DATE
+  #   time_span: HOW_MANY_YEARS YEARS HOW_MANY_MONTHS MONTHS
+  #   one_line_entry:
+  #     main_column: '**LABEL:** DETAILS'
+  #   education_entry:
+  #     main_column: |-
+  #       **INSTITUTION**, AREA
+  #       SUMMARY
+  #       HIGHLIGHTS
+  #     degree_column: '**DEGREE**'
+  #     date_and_location_column: |-
+  #       LOCATION
+  #       DATE
+  #   normal_entry:
+  #     main_column: |-
+  #       **NAME**
+  #       SUMMARY
+  #       HIGHLIGHTS
+  #     date_and_location_column: |-
+  #       LOCATION
+  #       DATE
+  #   experience_entry:
+  #     main_column: |-
+  #       **COMPANY**, POSITION
+  #       SUMMARY
+  #       HIGHLIGHTS
+  #     date_and_location_column: |-
+  #       LOCATION
+  #       DATE
+  #   publication_entry:
+  #     main_column: |-
+  #       **TITLE**
+  #       SUMMARY
+  #       AUTHORS
+  #       URL (JOURNAL)
+  #     date_and_location_column: DATE
+locale:
+  language: english
+  # last_updated: Last updated in
+  # month: month
+  # months: months
+  # year: year
+  # years: years
+  # present: present
+  # phrases:
+  #   degree_with_area: DEGREE in AREA
+  # month_abbreviations:
+  #   - Jan
+  #   - Feb
+  #   - Mar
+  #   - Apr
+  #   - May
+  #   - June
+  #   - July
+  #   - Aug
+  #   - Sept
+  #   - Oct
+  #   - Nov
+  #   - Dec
+  # month_names:
+  #   - January
+  #   - February
+  #   - March
+  #   - April
+  #   - May
+  #   - June
+  #   - July
+  #   - August
+  #   - September
+  #   - October
+  #   - November
+  #   - December
+settings:
+  current_date: today
+  render_command:
+    output_folder: rendercv_output_master
+    design:
+    locale:
+    typst_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.typ
+    pdf_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.pdf
+    markdown_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.md
+    html_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.html
+    png_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.png
+    dont_generate_markdown: false
+    dont_generate_html: false
+    dont_generate_typst: false
+    dont_generate_pdf: false
+    dont_generate_png: false
+  bold_keywords: []
+  pdf_title: NAME - CV
