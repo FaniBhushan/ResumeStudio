@@ -6,7 +6,7 @@ Status: MVP implemented. AI prompt templates are editable in `prompts/`. Follow-
 
 This is a local, single-user Streamlit app. Users manage profile details (including an optional photo), professional summary, experience, categorized achievements, education, certifications, skills, languages, and links. They can choose Codex CLI, Gemini CLI, or Claude Code for AI-assisted tasks and generate a PDF with RenderCV.
 
-Existing `data/` notes and `resumes/` files are preserved. The app writes new role, achievement, and profile Markdown under `data/app/`. Generated RenderCV YAML and rendered files go under `resumes/generated/`. Both output directories are gitignored. The starter YAML and existing resume files are inputs/examples and are never overwritten.
+All personal `data/` notes and imported or generated files under `resumes/` are local-only and gitignored. The repository ships a blank generic RenderCV starter configuration in `assets/sample_cv.yaml`; user content is never needed in the source repository.
 
 The Markdown files are reusable career source material. The generated YAML is the structured CV used by RenderCV. A generated PDF is the resume artifact users can preview and download.
 
@@ -52,7 +52,7 @@ The current provider selector runs each vendor's local CLI and uses its existing
 
 ## User workflow
 
-1. On first launch, load the starter CV YAML. On later launches, use the most recently saved YAML under `resumes/generated/` when one exists. The sidebar has one **Load an existing CV** uploader for YAML/YML, PDF, DOCX, and TXT. RenderCV YAML loads directly.
+1. On first launch, load the blank generic starter YAML from `assets/sample_cv.yaml`. On later launches, use the most recently saved YAML under `resumes/generated/` when one exists. The sidebar has one **Load an existing CV** uploader for YAML/YML, PDF, DOCX, and TXT. RenderCV YAML loads directly.
 2. For a PDF, DOCX, or TXT upload, local readers extract text and the selected AI CLI proposes values for the editor fields. Review and correct the loaded fields; the uploaded document is not saved by the app.
 3. Edit profile, summary, roles, education, certifications, skills, languages, links, and achievements in the Streamlit tabs.
 4. Optionally turn on **ATS mode** in the sidebar and paste a target job description. ATS mode is off by default. Use the ATS Checker tab to review keyword alignment, evidence gaps, formatting concerns, and targeted rewrite suggestions. While enabled, every text refinement uses that job description as context.
@@ -75,13 +75,9 @@ src/cv_builder/storage.py      # YAML/Markdown persistence
 src/cv_builder/importing.py    # Local PDF, DOCX, and TXT text extraction
 src/cv_builder/processes.py    # AI CLI adapters, import/refinement, and RenderCV subprocesses
 prompts/*.txt                  # Customizable AI task prompt templates
-data/                          # existing career notes; preserved
-data/app/profile.md            # app-authored profile/skills; gitignored
-data/app/profile-photo-*.png   # uploaded CV photos; gitignored
-data/app/roles/*.md            # app-authored role notes; gitignored
-data/app/achievements/*.md     # app-authored achievement notes; gitignored
-resumes/Fani_Bhushan_CV.yaml   # existing starter input; preserved
-resumes/generated/*            # generated Markdown/YAML/PDF and RenderCV files; gitignored
+assets/sample_cv.yaml          # blank generic RenderCV starter configuration
+data/*                         # personal career notes; gitignored
+resumes/*                      # imported and generated CVs; gitignored
 ```
 
 The form maps to RenderCV fields as follows:
@@ -98,7 +94,7 @@ The form maps to RenderCV fields as follows:
 
 Keep phone numbers as quoted strings so YAML cannot reinterpret them as numbers or remove leading zeros. RenderCV requires a valid international number with a country code; the field is optional. Map supported named networks to `cv.social_networks`; map personal and portfolio URLs to RenderCV's separate `cv.website` field.
 
-Keep imported RenderCV sections and design settings that the form does not expose. PyYAML preserves data values but not comments or original formatting. RenderCV 2.8 performs final schema validation during generation. New Markdown is written to the separate `data/app/` subtree, so existing notes under `data/roles`, `data/achievements`, and other current paths are not replaced.
+Keep imported RenderCV sections and design settings that the form does not expose. PyYAML preserves data values but not comments or original formatting. RenderCV 2.8 performs final schema validation during generation. New Markdown is written under local-only `data/app/`; personal notes and resume files are excluded from Git.
 
 Writes use temporary files followed by an atomic rename. Each generated CV has its own YAML and RenderCV output folder under `resumes/generated/`. Never accept arbitrary output paths from uploaded YAML; overwrite the output folder with the app-controlled folder before saving.
 
@@ -145,7 +141,7 @@ The repository already has agent skill instructions in `.agents/skills/`. Add th
 | Achievement extractor | `achievement-extractor` | Existing role notes → supported, categorized achievement Markdown in `data/app/achievements/` |
 | Resume reviewer | `resume-reviewer` | Selected YAML and writing guidelines → review findings shown in UI and saved as a review Markdown artifact when requested |
 
-Keep each operation optional and reviewable. Generated drafts must preserve evidence, avoid invented facts or metrics, and require user acceptance before they replace saved CV content. Job descriptions remain in the existing `job-descriptions/` folder. Preserve the current skill files and career notes as inputs.
+Keep each operation optional and reviewable. Generated drafts must preserve evidence, avoid invented facts or metrics, and require user acceptance before they replace saved CV content. Treat career notes as user-provided local input and keep them out of the source repository.
 
 ## Implementation status
 

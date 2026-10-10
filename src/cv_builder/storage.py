@@ -12,7 +12,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[2]
 DATA_OUTPUT = ROOT / "data" / "app"
 RESUME_OUTPUT = ROOT / "resumes" / "generated"
-STARTER_YAML = ROOT / "resumes" / "Fani_Bhushan_CV.yaml"
+STARTER_YAML = ROOT / "assets" / "sample_cv.yaml"
 
 
 class QuotedString(str):
