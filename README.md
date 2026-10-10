@@ -34,7 +34,7 @@ python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Open the local address printed in the terminal. On first use, load the starter CV from the app or create a draft from scratch.
+Open the local address printed in the terminal. Start with the blank sample CV or import your own resume. Personal career notes, imported resumes, and generated resume files stay local and are excluded from Git.
 
 ### Optional AI providers
 
@@ -58,7 +58,7 @@ The chosen CLI receives the text needed for the action you request, such as resu
 6. Use **Files** to download Markdown source notes or generated CV files.
 7. Open **Cover Letter** to draft a letter from your CV and job description, or from your own background description.
 
-The app writes its own career notes under `data/app/` and generated YAML and resume files under `resumes/generated/`. These generated artifacts are gitignored. Existing `data/` notes and files under `resumes/` are preserved; the starter CV is not overwritten.
+Personal career notes under `data/` and imported or generated resumes under `resumes/` are local-only and gitignored. The repository includes a blank sample CV at `assets/sample_cv.yaml` for app defaults and template settings.
 
 ## Project map
 
@@ -68,8 +68,9 @@ app_pages/                     CV Builder and Cover Letter views
 src/cv_builder/                Import, storage, provider, and RenderCV logic
 prompts/                       Editable AI prompt templates
 assets/                        Resume Studio logo and visual assets
-data/                          Existing source notes and local app data
-resumes/                       Existing CV inputs and generated outputs
+data/                          Local-only career notes (gitignored)
+resumes/                       Local-only CV inputs and generated outputs (gitignored)
+assets/sample_cv.yaml          Blank generic RenderCV starter configuration
 tests/                         Provider adapter tests
 requirements.txt               Python dependencies
 architecture-plan.md           Detailed architecture and implementation notes
