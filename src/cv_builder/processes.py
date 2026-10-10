@@ -298,7 +298,7 @@ def generate_cover_letter(
 def render_cv(yaml_path: Path, output_dir: Path) -> Path:
     executable = shutil.which("rendercv")
     if not executable:
-        raise RuntimeError("RenderCV was not found. Install dependencies with `python -m pip install -r requirement.txt`.")
+        raise RuntimeError("RenderCV was not found. Install dependencies with `python -m pip install -r requirements.txt`.")
     output_dir.mkdir(parents=True, exist_ok=True)
     try:
         result = subprocess.run(
