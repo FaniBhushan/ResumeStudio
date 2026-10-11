@@ -1,3 +1,4 @@
+
 cv:
   name: "Your Name"
   sections: {}
@@ -10,6 +11,6 @@ locale:
 
 settings:
   current_date: today
+  pdf_title: NAME - CV
   render_command:
     output_folder: generated
-    pdf_title: NAME - CV
