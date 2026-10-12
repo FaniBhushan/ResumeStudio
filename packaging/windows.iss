@@ -23,7 +23,7 @@ Source: "dist\ResumeStudio\*"; DestDir: "{app}"; Flags: ignoreversion recursesub
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\ResumeStudio.exe"
-Name: "{autodesktop}\{AppName}"; Filename: "{app}\ResumeStudio.exe"; Tasks: desktopicon
+Name: "{autodesktop}\{#AppName}"; Filename: "{app}\ResumeStudio.exe"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription: "Additional icons:"
