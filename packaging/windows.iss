@@ -9,7 +9,7 @@ AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 DefaultDirName={autopf}\Resume Studio
 DefaultGroupName={#AppName}
-OutputDir=dist-installer
+OutputDir=..\dist-installer
 OutputBaseFilename=ResumeStudio-Setup-Windows
 ArchitecturesInstallIn64BitMode=x64
 Compression=lzma2
@@ -19,7 +19,7 @@ PrivilegesRequired=lowest
 UninstallDisplayIcon={app}\ResumeStudio.exe
 
 [Files]
-Source: "dist\ResumeStudio\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\ResumeStudio\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\ResumeStudio.exe"
