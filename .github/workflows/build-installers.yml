@@ -59,7 +59,6 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          choco install innosetup --no-progress -y
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAppVersion=$env:APP_VERSION packaging/windows.iss
       - name: Build macOS disk image
         if: runner.os == 'macOS'
@@ -80,7 +79,7 @@ jobs:
           ln -s usr/share/icons/hicolor/scalable/apps/resume-studio.svg AppDir/resume-studio.svg
           curl -fsSL "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -o appimagetool
           chmod +x appimagetool
-          ARCH=x86_64 ./appimagetool AppDir "dist-installer/ResumeStudio-${APP_VERSION}-Linux.AppImage"
+          APPIMAGE_EXTRACT_AND_RUN=1 ARCH=x86_64 ./appimagetool AppDir "dist-installer/ResumeStudio-${APP_VERSION}-Linux.AppImage"
       - uses: actions/upload-artifact@v4
         with:
           name: ResumeStudio-${{ matrix.artifact }}
