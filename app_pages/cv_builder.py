@@ -726,9 +726,9 @@ with tab_profile:
         if error := links_format_error(st.session_state.get("profile_links", "")):
             st.error(error)
     icon_text_area("About / professional summary", "person", key="profile_summary", height=190)
-    if st.button("Refine summary with Codex", key="refine_summary", disabled=refinement_disabled(st.session_state["profile_summary"])):
+    if st.button("Refine summary with AI", key="refine_summary", disabled=refinement_disabled(st.session_state["profile_summary"])):
         try:
-            with st.spinner("Asking Codex for a wording suggestion…"):
+            with st.spinner("Asking AI for a wording suggestion…"):
                 target_job_description = active_job_description()
                 suggestion = refine_text(
                     st.session_state["profile_summary"],
@@ -777,7 +777,7 @@ with tab_roles:
                 disabled=refinement_disabled(st.session_state[f"role_{role_id}_highlights"]),
             ):
                 try:
-                    with st.spinner("Asking Codex for a wording suggestion…"):
+                    with st.spinner("Asking AI for a wording suggestion…"):
                         target_job_description = active_job_description()
                         suggestion = refine_text(
                             st.session_state[f"role_{role_id}_highlights"],
@@ -818,7 +818,7 @@ with tab_more:
 
 **Product** — outcomes for users, customers, or the business: features, adoption, product direction, roadmap, or measurable value.
 
-Write one achievement per line. Start with an action, say what changed and the result, and include metrics only when you know them. Codex assigns each line to the category that best matches its primary impact; review the grouping before saving.
+Write one achievement per line. Start with an action, say what changed and the result, and include metrics only when you know them. AI assigns each line to the category that best matches its primary impact; review the grouping before saving.
             """
         )
     icon_text_area(
@@ -837,7 +837,7 @@ Write one achievement per line. Start with an action, say what changed and the r
         width="stretch",
     ):
         try:
-            with st.spinner("Asking Codex to refine your achievements…"):
+            with st.spinner("Asking AI to refine your achievements…"):
                 target_job_description = active_job_description()
                 suggestion = refine_text(
                     current_achievement_text,

@@ -6,9 +6,41 @@
 
 <p align="center">Build a thoughtful CV, tailor it to a role, and create a matching cover letter — all in one local workspace.</p>
 
-<p align="center"><a href="https://youtu.be/aEDAM6XIsAg"><img src="https://img.youtube.com/vi/aEDAM6XIsAg/hqdefault.jpg" alt="Watch the Resume Studio video" width="560"></a></p>
+<p align="center">
+  <a href="https://www.python.org/"><img alt="Python 3.12+" src="https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white"></a>
+  <a href="https://streamlit.io/"><img alt="Streamlit" src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white"></a>
+  <a href="https://rendercv.com/"><img alt="RenderCV" src="https://img.shields.io/badge/PDF-RenderCV-333333"></a>
+  <img alt="Local-first" src="https://img.shields.io/badge/data-local--first-2E8B57">
+</p>
 
 Resume Studio is a local Streamlit app for turning career notes into polished, editable application documents. It uses [RenderCV](https://rendercv.com/) to render CV PDFs from structured YAML with RenderCV's templates. Keep your experience in your own words, optionally get AI-assisted suggestions, and review every change before saving or generating a PDF.
+
+## Quick start
+
+Run these commands from a terminal with Python 3.12 or newer:
+
+```bash
+git clone https://github.com/FaniBhushan/ResumeStudio.git
+cd ResumeStudio
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+streamlit run app.py
+```
+
+Open the local address Streamlit prints. In **CV Builder**, start with the blank CV or import a RenderCV YAML, selectable-text PDF, DOCX, or TXT file. Review and edit the fields, then save your CV and generate a PDF. Open **Cover Letter** to create a draft from your CV or background notes. AI features are optional; configure a local provider CLI if you want suggestions.
+
+## Desktop installers
+
+Windows, macOS, and Linux installers are built by the **Build desktop installers** GitHub Actions workflow. It currently targets Windows x64, macOS Intel and Apple silicon, and Linux x86_64. To create a downloadable GitHub Release, push a version tag such as `v1.0.0`; the workflow builds a Windows setup `.exe`, macOS `.dmg` images, and a Linux `.AppImage`, then attaches them to that release. You can also run the workflow manually to download build artifacts without publishing a release.
+
+The app and PDF renderer are bundled. Optional AI features still require a separately installed and signed-in Codex CLI, Gemini CLI, or Claude Code. The first packages are unsigned; Windows or macOS may show an operating-system warning before launch.
+
+**Device support:** Resume Studio is designed for use in a desktop or laptop browser. The interface is not currently optimized for mobile screens.
+
+Personal notes, imported resumes, and generated documents are stored locally in `data/` and `resumes/`; these folders are excluded from Git.
+
+<p align="center"><a href="https://youtu.be/aEDAM6XIsAg"><img src="https://img.youtube.com/vi/aEDAM6XIsAg/hqdefault.jpg" alt="Watch the Resume Studio video" width="560"></a></p>
 
 ## What you can do
 
@@ -21,30 +53,17 @@ Resume Studio is a local Streamlit app for turning career notes into polished, e
 - **Write a cover letter:** start with an existing CV or a description of your background, add a job description if useful, and edit the resulting draft.
 - **Keep useful source files:** save career notes as Markdown alongside the structured RenderCV YAML and generated resume artifacts.
 
-## Get started
-
-Use Python 3.12 or newer.
-
-```bash
-git clone <repository-url>
-cd ResumeStudio
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-streamlit run app.py
-```
-
-Open the local address printed in the terminal. Start with the blank sample CV or import your own resume. Personal career notes, imported resumes, and generated resume files stay local and are excluded from Git.
-
 ### Optional AI providers
 
-AI features use a locally installed CLI and its existing sign-in. Install and authenticate the provider you want to use; ordinary editing, saving, and PDF generation work without one.
+AI features use a locally installed CLI and its existing sign-in. Install one provider below, then launch the CLI once and follow its sign-in prompts. Ordinary editing, saving, and PDF generation work without an AI provider.
 
-| Provider | CLI command |
-| --- | --- |
-| OpenAI Codex | `codex` |
-| Google Gemini | `gemini` |
-| Anthropic Claude Code | `claude` |
+| Provider | Install | First run and sign in |
+| --- | --- | --- |
+| [OpenAI Codex](https://developers.openai.com/codex/cli/) | `npm install -g @openai/codex@latest` | Run `codex` and choose an available sign-in method. |
+| [Google Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/index.md) | `npm install -g @google/gemini-cli` | Run `gemini` and follow its authentication prompts. |
+| [Anthropic Claude Code](https://code.claude.com/docs/en/getting-started) | `npm install -g @anthropic-ai/claude-code` | Run `claude` and follow the browser login prompts. |
+
+Install Node.js and npm first. Gemini CLI requires Node.js 20 or newer; Claude Code's npm installation requires Node.js 22 or newer. Check availability with `node --version` and `npm --version`. After installing and signing in, start or restart Streamlit from a terminal where the provider command works, so the app inherits the correct `PATH`. Verify with `codex --version`, `gemini --version`, or `claude --version`.
 
 The chosen CLI receives the text needed for the action you request, such as resume content and, when ATS mode is on, the job description. The app does not call provider APIs directly or store provider API keys.
 
@@ -59,6 +78,18 @@ The chosen CLI receives the text needed for the action you request, such as resu
 7. Open **Cover Letter** to draft a letter from your CV and job description, or from your own background description.
 
 Personal career notes under `data/` and imported or generated resumes under `resumes/` are local-only and gitignored. The repository includes a blank sample CV at `assets/sample_cv.yaml` for app defaults and template settings.
+
+## Roadmap
+
+### Planned
+
+- Add support for connecting AI providers with user-supplied API keys.
+- Add support for local language models served by [Ollama](https://ollama.com/).
+
+### Long-term direction
+
+- Build a web-based version with a Vue or React frontend and a Python backend exposed through an API.
+- Offer a free local installer, with an optional paid AI assistant.
 
 ## Project map
 
@@ -93,7 +124,6 @@ RenderCV is the CV rendering engine: Resume Studio prepares the RenderCV YAML, a
 
 ![Resume Studio user workflow, including AI CLI cover letter generation and RenderCV PDF output](assets/workflow-diagram.svg)
 
-- [40-second Resume Studio video](brag-output-2026-10-10-231114/composition/renders/composition_2026-10-10_23-32-34.mp4) is the rendered launch/brag video. Its HyperFrames project and brief are in [brag-output-2026-10-10-231114](brag-output-2026-10-10-231114/).
 
 ## Run checks
 

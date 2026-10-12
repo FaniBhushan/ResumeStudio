@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 import tempfile
 import json
 from pathlib import Path
@@ -296,13 +297,15 @@ def generate_cover_letter(
 
 
 def render_cv(yaml_path: Path, output_dir: Path) -> Path:
-    executable = shutil.which("rendercv")
+    frozen = getattr(sys, "frozen", False)
+    executable = sys.executable if frozen else shutil.which("rendercv")
     if not executable:
         raise RuntimeError("RenderCV was not found. Install dependencies with `python -m pip install -r requirements.txt`.")
     output_dir.mkdir(parents=True, exist_ok=True)
+    command = [executable, "--rendercv", "render", str(yaml_path)] if frozen else [executable, "render", str(yaml_path)]
     try:
         result = subprocess.run(
-            [executable, "render", str(yaml_path)],
+            command,
             cwd=yaml_path.parent,
             capture_output=True,
             text=True,

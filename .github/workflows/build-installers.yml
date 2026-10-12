@@ -1,0 +1,93 @@
+name: Build desktop installers
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: windows
+          - os: macos-latest
+            artifact: macOS-arm64
+          - os: macos-15-intel
+            artifact: macOS-x64
+          - os: ubuntu-22.04
+            artifact: linux
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install app and packaging dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pyinstaller
+      - name: Set version
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-].*)?$ ]]; then version="0.0.0-dev"; fi
+          echo "APP_VERSION=$version" >> "$GITHUB_ENV"
+      - name: Build application bundle
+        run: >-
+          pyinstaller --noconfirm --clean --windowed --name ResumeStudio
+          --collect-all streamlit --collect-all rendercv --collect-all typst
+          --collect-all pydantic --collect-all pydantic_core
+          --copy-metadata rendercv
+          --paths src
+          --hidden-import app_pages.cv_builder --hidden-import app_pages.cover_letter
+          --hidden-import cv_builder.storage --hidden-import cv_builder.importing --hidden-import cv_builder.processes
+          --hidden-import yaml --hidden-import pypdf --hidden-import docx
+          --add-data "app.py${{ runner.os == 'Windows' && ';' || ':' }}."
+          --add-data "app_pages${{ runner.os == 'Windows' && ';' || ':' }}app_pages"
+          --add-data "src${{ runner.os == 'Windows' && ';' || ':' }}src"
+          --add-data "assets${{ runner.os == 'Windows' && ';' || ':' }}assets"
+          --add-data "prompts${{ runner.os == 'Windows' && ';' || ':' }}prompts"
+          packaging/launcher.py
+      - name: Build Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install innosetup --no-progress -y
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAppVersion=$env:APP_VERSION packaging/windows.iss
+      - name: Build macOS disk image
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p dist-installer
+          hdiutil create -volname "Resume Studio" -srcfolder dist/ResumeStudio.app -ov -format UDZO "dist-installer/ResumeStudio-${APP_VERSION}-${{ matrix.artifact }}.dmg"
+      - name: Build Linux AppImage
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/scalable/apps dist-installer
+          cp -R dist/ResumeStudio/. AppDir/usr/bin/
+          cp packaging/linux/ResumeStudio.desktop AppDir/usr/share/applications/
+          cp assets/resume-studio-logo.svg AppDir/usr/share/icons/hicolor/scalable/apps/resume-studio.svg
+          cp packaging/linux/AppRun AppDir/AppRun
+          chmod +x AppDir/AppRun
+          ln -s usr/share/applications/ResumeStudio.desktop AppDir/ResumeStudio.desktop
+          ln -s usr/share/icons/hicolor/scalable/apps/resume-studio.svg AppDir/resume-studio.svg
+          curl -fsSL "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -o appimagetool
+          chmod +x appimagetool
+          ARCH=x86_64 ./appimagetool AppDir "dist-installer/ResumeStudio-${APP_VERSION}-Linux.AppImage"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ResumeStudio-${{ matrix.artifact }}
+          path: dist-installer/*
+          if-no-files-found: error
+      - name: Publish GitHub Release assets
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist-installer/*
