@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Resume Studio
+Comment=Build and tailor your CV and cover letters
+Exec=AppRun
+Icon=resume-studio
+Categories=Office;WordProcessor;
+Terminal=false

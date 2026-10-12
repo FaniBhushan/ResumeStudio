@@ -1,17 +1,23 @@
 from __future__ import annotations
 
 import re
+import sys
 import tempfile
 import copy
 from pathlib import Path
 from typing import Any
 
 import yaml
+from platformdirs import user_data_dir
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA_OUTPUT = ROOT / "data" / "app"
-RESUME_OUTPUT = ROOT / "resumes" / "generated"
+if getattr(sys, "frozen", False):
+    USER_ROOT = Path(user_data_dir("ResumeStudio", "FaniBhushan"))
+else:
+    USER_ROOT = ROOT
+DATA_OUTPUT = USER_ROOT / "data" / "app"
+RESUME_OUTPUT = USER_ROOT / "resumes" / "generated"
 STARTER_YAML = ROOT / "assets" / "sample_cv.yaml"
 
 
@@ -35,6 +41,18 @@ def slugify(value: str, fallback: str = "my_cv") -> str:
     return slug or fallback
 
 
+def normalize_rendercv_settings(document: dict[str, Any]) -> dict[str, Any]:
+    """Move the legacy misplaced PDF title to RenderCV's supported settings field."""
+    settings = document.get("settings")
+    if not isinstance(settings, dict):
+        return document
+    render_command = settings.get("render_command")
+    if isinstance(render_command, dict) and "pdf_title" in render_command:
+        legacy_title = render_command.pop("pdf_title")
+        settings.setdefault("pdf_title", legacy_title)
+    return document
+
+
 def load_yaml(path: Path) -> dict[str, Any]:
     content = path.read_text(encoding="utf-8")
     value = yaml.safe_load(content)
@@ -56,12 +74,12 @@ def load_yaml(path: Path) -> dict[str, Any]:
     phone = value["cv"].get("phone")
     if phone is not None:
         value["cv"]["phone"] = str(phone)
-    return value
+    return normalize_rendercv_settings(value)
 
 
 def dump_yaml_atomic(path: Path, document: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    serializable = copy.deepcopy(document)
+    serializable = normalize_rendercv_settings(copy.deepcopy(document))
     phone = serializable.get("cv", {}).get("phone")
     if phone is not None:
         serializable["cv"]["phone"] = QuotedString(str(phone))
