@@ -13,7 +13,17 @@ def main() -> None:
         return
 
     app_file = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parents[1])) / "app.py"
-    sys.argv = ["streamlit", "run", str(app_file), "--server.headless=false", "--server.address=127.0.0.1", "--browser.gatherUsageStats=false"]
+    sys.argv = [
+        "streamlit",
+        "run",
+        str(app_file),
+        "--global.developmentMode=false",
+        "--server.headless=false",
+        "--server.address=127.0.0.1",
+        "--server.port=8501",
+        "--browser.serverPort=8501",
+        "--browser.gatherUsageStats=false",
+    ]
     from streamlit.web.cli import main as streamlit_main
 
     streamlit_main()
