@@ -1,6 +1,7 @@
 # All personal career data, imported CVs, and generated resume artifacts stay local.
 /data/
 /resumes/
+/brag-output-*/
 
 # Python environment and cache files
 .venv/
