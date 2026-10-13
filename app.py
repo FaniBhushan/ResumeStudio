@@ -1,5 +1,6 @@
 from pathlib import Path
 import shutil
+import sys
 
 import streamlit as st
 
@@ -43,4 +44,13 @@ page = st.navigation(
     ],
     position="top",
 )
+if getattr(sys, "frozen", False):
+    close_instructions = {
+        "darwin": "Quit Resume Studio from the Dock (right-click its icon and choose **Quit**). Closing this browser tab alone leaves the local server running.",
+        "win32": "Exit Resume Studio from the taskbar or Task Manager. Closing this browser tab alone leaves the local server running.",
+    }.get(
+        sys.platform,
+        "Quit Resume Studio from your application menu or system monitor. Closing this browser tab alone leaves the local server running.",
+    )
+    st.info(f"**When you’re finished:** {close_instructions}")
 page.run()

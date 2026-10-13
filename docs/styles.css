@@ -105,6 +105,7 @@ h3 { margin-bottom: 10px; font-family: Manrope, sans-serif; font-size: 17px; let
 .install-guide .feature-card { min-height: 0; }
 .install-guide .feature-card p { max-width: none; margin-top: 10px; }
 .install-guide code { overflow-wrap: anywhere; border-radius: 4px; background: #f1f4ef; padding: 2px 5px; font-size: .92em; }
+.runtime-note { display: flex; flex-wrap: wrap; gap: 5px 9px; margin-top: 18px; padding: 15px 18px; border-left: 4px solid var(--green); border-radius: 5px; background: #edf4ec; color: var(--ink); font-size: 13px; line-height: 1.6; }
 .mac-warning { margin-top: 20px; padding: 30px; border: 2px solid #b54708; border-radius: 9px; background: #fff9f2; }
 .mac-warning > .eyebrow { margin-bottom: 9px; color: #9a3412; font-weight: 800; }
 .mac-warning > h3 { margin-bottom: 8px; color: #642d0b; font-size: 21px; }
