@@ -36,8 +36,8 @@ jobs:
         run: |
           test -s site/sitemap.txt
           grep -Fx "Sitemap: https://fanibhushan.github.io/ResumeStudio/sitemap.txt" site/robots.txt
-          test -s site/about.html
-          test -s site/getting-started/install.html
+          test -s site/about/index.html
+          test -s site/getting-started/install/index.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
