@@ -62,9 +62,51 @@ jobs:
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAppVersion=$env:APP_VERSION packaging/windows.iss
       - name: Build macOS disk image
         if: runner.os == 'macOS'
+        env:
+          MACOS_CERTIFICATE_P12: ${{ secrets.MACOS_CERTIFICATE_P12 }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          MACOS_SIGNING_IDENTITY: ${{ secrets.MACOS_SIGNING_IDENTITY }}
+          APPLE_API_KEY_P8_BASE64: ${{ secrets.APPLE_API_KEY_P8_BASE64 }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
         run: |
           mkdir -p dist-installer
-          hdiutil create -volname "Resume Studio" -srcfolder dist/ResumeStudio.app -ov -format UDZO "dist-installer/ResumeStudio-${APP_VERSION}-${{ matrix.artifact }}.dmg"
+          app_path="dist/ResumeStudio.app"
+          dmg_path="dist-installer/ResumeStudio-${APP_VERSION}-${{ matrix.artifact }}.dmg"
+          signing_values=("$MACOS_CERTIFICATE_P12" "$MACOS_CERTIFICATE_PASSWORD" "$MACOS_SIGNING_IDENTITY" "$APPLE_API_KEY_P8_BASE64" "$APPLE_API_KEY_ID" "$APPLE_API_ISSUER_ID")
+          configured_values=0
+          for value in "${signing_values[@]}"; do
+            if [[ -n "$value" ]]; then configured_values=$((configured_values + 1)); fi
+          done
+          if [[ "$configured_values" -ne 0 && "$configured_values" -ne "${#signing_values[@]}" ]]; then
+            echo "Signing/notarization secrets are only partially configured; provide all six or none." >&2
+            exit 1
+          fi
+          if [[ "$configured_values" -eq "${#signing_values[@]}" ]]; then
+            certificate_path="$RUNNER_TEMP/resume-studio-certificate.p12"
+            api_key_path="$RUNNER_TEMP/AuthKey_${APPLE_API_KEY_ID}.p8"
+            printf '%s' "$MACOS_CERTIFICATE_P12" | base64 -D > "$certificate_path"
+            printf '%s' "$APPLE_API_KEY_P8_BASE64" | base64 -D > "$api_key_path"
+            keychain_path="$RUNNER_TEMP/resume-studio-signing.keychain-db"
+            keychain_password="$(openssl rand -hex 20)"
+            security create-keychain -p "$keychain_password" "$keychain_path"
+            security set-keychain-settings -lut 21600 "$keychain_path"
+            security unlock-keychain -p "$keychain_password" "$keychain_path"
+            security import "$certificate_path" -k "$keychain_path" -P "$MACOS_CERTIFICATE_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+            security set-key-partition-list -S apple-tool:,apple: -s -k "$keychain_password" "$keychain_path"
+            security list-keychains -d user -s "$keychain_path" "$HOME/Library/Keychains/login.keychain-db"
+            codesign --force --deep --options runtime --timestamp --sign "$MACOS_SIGNING_IDENTITY" "$app_path"
+            codesign --verify --deep --strict --verbose=2 "$app_path"
+            security delete-keychain "$keychain_path"
+          else
+            echo "Apple signing/notarization secrets are not configured; building an unsigned macOS installer."
+          fi
+          hdiutil create -volname "Resume Studio" -srcfolder "$app_path" -ov -format UDZO "$dmg_path"
+          if [[ "$configured_values" -eq "${#signing_values[@]}" ]]; then
+            xcrun notarytool submit "$dmg_path" --key "$api_key_path" --key-id "$APPLE_API_KEY_ID" --issuer "$APPLE_API_ISSUER_ID" --wait
+            xcrun stapler staple "$dmg_path"
+            xcrun stapler validate "$dmg_path"
+          fi
       - name: Build Linux AppImage
         if: runner.os == 'Linux'
         shell: bash

@@ -27,10 +27,10 @@
           <h1>Your experience,<br><span>clearly told.</span></h1>
           <p class="intro">Build a thoughtful CV, tailor it to a role, and write a matching cover letter — in one calm, private workspace on your computer.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/FaniBhushan/ResumeStudio/releases">Get Resume Studio <span aria-hidden="true">↗</span></a>
+            <a class="button button-primary" href="#downloads">Download installers <span aria-hidden="true">↓</span></a>
             <a class="text-link" href="https://github.com/FaniBhushan/ResumeStudio">Explore the project</a>
           </div>
-          <p class="download-note">Installer downloads will appear on the Releases page.</p>
+          <p class="download-note">Choose your operating system below to download the latest release.</p>
           <p class="download-note">The Resume Studio workspace is designed for desktop and laptop browsers; it is not currently optimized for mobile screens.</p>
         </div>
         <div class="hero-art" aria-label="A preview of a clean CV document">
@@ -52,6 +52,17 @@
           <div class="local-badge"><span class="lock-icon" aria-hidden="true">⌑</span><span><b>Your files stay local</b><small>Saved on your computer</small></span></div>
           <span class="sparkle sparkle-one" aria-hidden="true">✳</span>
           <span class="sparkle sparkle-two" aria-hidden="true">✳</span>
+        </div>
+      </section>
+
+      <section class="downloads" id="downloads" aria-labelledby="downloads-title">
+        <div class="wrap">
+          <p class="eyebrow">GET THE APP</p>
+          <h2 id="downloads-title">Download Resume Studio</h2>
+          <p class="downloads-intro">Installers from the latest release, ready for your computer.</p>
+          <p class="release-status" id="release-status" aria-live="polite">Loading the latest release…</p>
+          <div class="download-grid" id="download-grid"></div>
+          <a class="text-link release-link" href="https://github.com/FaniBhushan/ResumeStudio/releases">View all releases on GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
@@ -101,7 +112,7 @@
       <section class="closing wrap">
         <p class="eyebrow">READY WHEN YOU ARE</p>
         <h2>Make your next application<br>feel more like you.</h2>
-        <a class="button button-primary" href="https://github.com/FaniBhushan/ResumeStudio/releases">Visit downloads <span aria-hidden="true">↗</span></a>
+        <a class="button button-primary" href="#downloads">Download installers <span aria-hidden="true">↓</span></a>
         <p class="closing-note">Free and open source · Built with Streamlit and RenderCV</p>
       </section>
     </main>
@@ -111,5 +122,55 @@
       <span>Made for people building their next chapter.</span>
       <a href="https://github.com/FaniBhushan/ResumeStudio">GitHub <span aria-hidden="true">↗</span></a>
     </footer>
+    <script>
+      (async () => {
+        const status = document.getElementById('release-status');
+        const grid = document.getElementById('download-grid');
+        const releasesUrl = 'https://api.github.com/repos/FaniBhushan/ResumeStudio/releases/latest';
+        try {
+          const response = await fetch(releasesUrl, { headers: { Accept: 'application/vnd.github+json' } });
+          if (!response.ok) throw new Error('No release found');
+          const release = await response.json();
+          const assets = release.assets.filter((asset) => /\.(exe|dmg|appimage)$/i.test(asset.name));
+          if (!assets.length) throw new Error('No installer assets found');
+          const order = ['windows', 'macos-arm64', 'macos-x64', 'linux'];
+          const platform = (name) => {
+            const normalized = name.toLowerCase();
+            if (normalized.includes('windows')) return 'windows';
+            if (normalized.includes('macos-arm64')) return 'macos-arm64';
+            if (normalized.includes('macos-x64')) return 'macos-x64';
+            if (normalized.includes('linux')) return 'linux';
+            return 'other';
+          };
+          assets.sort((a, b) => order.indexOf(platform(a.name)) - order.indexOf(platform(b.name)));
+          status.textContent = `Latest release: ${release.tag_name}`;
+          for (const asset of assets) {
+            const link = document.createElement('a');
+            link.className = 'download-card';
+            link.href = asset.browser_download_url;
+            link.setAttribute('download', asset.name);
+            const label = document.createElement('span');
+            label.className = 'download-platform';
+            const name = asset.name.toLowerCase();
+            label.textContent = name.includes('windows') ? 'Windows' : name.includes('macos-arm64') ? 'macOS · Apple silicon' : name.includes('macos-x64') ? 'macOS · Intel' : name.includes('linux') ? 'Linux' : 'Installer';
+            const filename = document.createElement('span');
+            filename.className = 'download-filename';
+            filename.textContent = asset.name;
+            const size = document.createElement('span');
+            size.className = 'download-size';
+            size.textContent = `${(asset.size / (1024 * 1024)).toFixed(1)} MB · Download ↗`;
+            link.append(label, filename, size);
+            grid.append(link);
+          }
+        } catch {
+          status.textContent = 'No installer release is available yet.';
+          const link = document.createElement('a');
+          link.className = 'text-link';
+          link.href = 'https://github.com/FaniBhushan/ResumeStudio/releases';
+          link.textContent = 'Check the GitHub Releases page';
+          grid.append(link);
+        }
+      })();
+    </script>
   </body>
 </html>
