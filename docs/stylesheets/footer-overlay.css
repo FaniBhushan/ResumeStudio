@@ -205,10 +205,8 @@ html.marketing-home body .footer a { color: var(--green); font-weight: 700; }
 }
 
 /* Let the existing homepage use its full-width marketing layout inside MkDocs. */
-html.marketing-home body .md-header,
 html.marketing-home body .md-tabs,
-html.marketing-home body .md-sidebar--secondary,
-html.marketing-home body .md-footer { display: none; }
+html.marketing-home body .md-sidebar--secondary { display: none; }
 html.marketing-home body .md-main__inner { display: block; max-width: none; margin: 0; }
 html.marketing-home body .md-content,
 html.marketing-home body .md-content__inner,

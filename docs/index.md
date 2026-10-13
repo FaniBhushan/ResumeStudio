@@ -4,19 +4,6 @@ description: Build a CV and cover letter for free with Resume Studio. Use the op
 ---
 
 <div class="marketing-home-content">
-<header class="topbar wrap">
-      <a class="brand" href="#top" aria-label="Resume Studio home">
-        <img src="assets/resume-studio-logo.svg" alt="Resume Studio">
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="getting-started/install/">Install guide</a>
-        <a href="guides/faq/">FAQ</a>
-        <a href="guides/ats-review/">ATS review</a>
-        <a href="getting-started/ai-providers/">AI setup</a>
-        <a href="https://github.com/FaniBhushan/ResumeStudio">Source code <span aria-hidden="true">↗</span></a>
-      </nav>
-    </header>
-
     <main id="top">
       <section class="hero wrap">
         <div class="hero-copy">
@@ -210,9 +197,4 @@ description: Build a CV and cover letter for free with Resume Studio. Use the op
       </section>
     </main>
 
-    <footer class="footer wrap">
-      <span>© Resume Studio</span>
-      <span>Made for people building their next chapter.</span>
-      <a href="https://github.com/FaniBhushan/ResumeStudio">GitHub <span aria-hidden="true">↗</span></a>
-    </footer>
 </div>
