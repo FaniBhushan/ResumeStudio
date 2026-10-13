@@ -109,7 +109,7 @@
             </div>
             <div>
               <h4>“The app is damaged and moved to the Bin”</h4>
-              <p><strong>Stop here; do not use Open Anyway or commands that disable macOS checks.</strong> Apple says this can mean the app is corrupted or altered, or that macOS blocked it as malware. This release is not notarized, so we cannot use Apple’s notarization to establish its trust. The latest ARM installer’s code signature verifies, but that alone does not prove the download is safe or explain this alert.</p>
+              <p><strong>Stop here; do not use Open Anyway or commands that disable macOS checks.</strong> Apple says this can mean the app is corrupted or altered, or that macOS blocked it as malware. This release is not notarized, so Apple has not established its trust. The v0.1.1 ARM build has a confirmed copy issue: Finder changes an accented resource filename and the copied app then fails signature verification. Use a newer release with the packaging fix, and stop if this warning still appears.</p>
               <figure>
                 <img src="assets/macos/damaged-or-malware-alert.png" alt="Apple’s example alert for an app blocked as malware and moved to Trash" loading="lazy">
                 <figcaption>Apple’s example of a malware-block alert. It is different from the “cannot check” warning above.</figcaption>
