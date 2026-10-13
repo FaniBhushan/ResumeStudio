@@ -1,8 +1,1 @@
 https://fanibhushan.github.io/ResumeStudio/
-https://fanibhushan.github.io/ResumeStudio/about.html
-https://fanibhushan.github.io/ResumeStudio/getting-started/ai-providers.html
-https://fanibhushan.github.io/ResumeStudio/getting-started/install.html
-https://fanibhushan.github.io/ResumeStudio/getting-started/macos.html
-https://fanibhushan.github.io/ResumeStudio/guides/ats-review.html
-https://fanibhushan.github.io/ResumeStudio/guides/cv-builder.html
-https://fanibhushan.github.io/ResumeStudio/guides/faq.html

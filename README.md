@@ -49,18 +49,17 @@ Get the latest installers from the [download page](https://fanibhushan.github.io
 
 **FAQ — Why does clicking the app appear to do nothing?** Resume Studio may already be running in the background and using its local port. Check for an open page at `http://127.0.0.1:8501`; otherwise quit the existing app process in your system’s app or process manager, then launch it again.
 
-> **macOS warning — read the exact alert.** This free app is not notarized by Apple. For **“Apple cannot check it for malicious software,”** try opening it, then choose **System Settings → Privacy & Security → Open Anyway** and confirm only if you trust this GitHub release. For **“app is damaged and moved to the Bin,” stop**: Apple says this can indicate corruption, alteration, or a malware block. Do not override that alert or disable macOS checks. See [Apple’s guidance](https://support.apple.com/en-ie/102445) and the [illustrated macOS guide](https://fanibhushan.github.io/ResumeStudio/getting-started/macos/).
+> **macOS warning — read the exact alert.** This free app is not notarized by Apple. For **“Apple cannot check it for malicious software,”** try opening it, then choose **System Settings → Privacy & Security → Open Anyway** and confirm only if you trust this GitHub release. For **“app is damaged and moved to the Bin,” stop**: Apple says this can indicate corruption, alteration, or a malware block. Do not override that alert or disable macOS checks. See [Apple’s guidance](https://support.apple.com/en-ie/102445) and the [illustrated macOS guide](https://fanibhushan.github.io/ResumeStudio/#install-guide).
 
 ### Documentation
 
-The public site is built with Material for MkDocs and deployed to GitHub Pages. To preview documentation changes locally:
+The public landing page is a static HTML site in `docs/` and is deployed to GitHub Pages. Edit `docs/index.html` and `docs/styles.css`; the Pages workflow publishes the directory directly.
 
 ```bash
-python -m pip install -r requirements-docs.txt
-mkdocs serve
+python3 -m http.server 8000 --directory docs
 ```
 
-The Pages workflow builds with `mkdocs build --strict` when documentation or its configuration changes.
+The Pages workflow checks and deploys the static files when `docs/` changes.
 
 ### Optional AI command-line tools
 
