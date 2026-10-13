@@ -15,6 +15,8 @@
 
 Resume Studio is a local Streamlit app for turning career notes into polished, editable application documents. It uses [RenderCV](https://rendercv.com/) to render CV PDFs from structured YAML with RenderCV's templates. Keep your experience in your own words, optionally get AI-assisted suggestions, and review every change before saving or generating a PDF.
 
+> **Enjoying Resume Studio?** [Star the project on GitHub](https://github.com/FaniBhushan/ResumeStudio) to support its development.
+
 ## Quick start
 
 Run these commands from a terminal with Python 3.12 or newer:
