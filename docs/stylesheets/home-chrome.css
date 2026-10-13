@@ -1,0 +1,5 @@
+/* Keep shared MkDocs chrome visible on the custom marketing homepage. */
+html.marketing-home body .md-header,
+html.marketing-home body .md-footer {
+  display: block !important;
+}

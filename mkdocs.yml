@@ -33,6 +33,7 @@ extra_css:
   - stylesheets/faq-cards.css
   - stylesheets/home-faq.css
   - stylesheets/sidebar-visibility.css
+  - stylesheets/home-chrome.css
 
 extra_javascript:
   - javascripts/navigation-footer-toggle.js
