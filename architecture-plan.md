@@ -156,6 +156,8 @@ Keep each operation optional and reviewable. Generated drafts must preserve evid
 - [x] Add opt-in ATS alignment review and job-description-aware refinement.
 - [x] Draft an editable cover letter from an existing CV or a user description, optionally tailored to a job description, with Markdown download/save.
 - [ ] Add Star story generator, achievement extractor, and resume reviewer actions.
+- [ ] Expand the template catalog with additional built-in RenderCV themes when supported by the pinned RenderCV version; verify previews and generated PDFs.
+- [ ] Let users bring in a custom RenderCV theme and select it for previews and PDF generation; validate it with varied CV content and page lengths.
 
 ## References
 

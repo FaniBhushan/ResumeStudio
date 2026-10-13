@@ -2,6 +2,7 @@
 /data/
 /resumes/
 /brag-output-*/
+/site/
 
 # Python environment and cache files
 .venv/

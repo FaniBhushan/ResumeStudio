@@ -1,0 +1,65 @@
+site_name: Resume Studio
+site_description: Free, open-source CV builder with local file storage and optional AI-assisted ATS alignment review.
+site_url: https://fanibhushan.github.io/ResumeStudio/
+repo_url: https://github.com/FaniBhushan/ResumeStudio
+repo_name: FaniBhushan/ResumeStudio
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  language: en
+  logo: assets/resume-studio-logo.svg
+  favicon: assets/resume-studio-logo.svg
+  font: false
+  palette:
+    - scheme: default
+      primary: green
+      accent: light green
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/footer-overlay.css
+  - stylesheets/faq-cards.css
+  - stylesheets/home-faq.css
+  - stylesheets/sidebar-visibility.css
+
+extra_javascript:
+  - javascripts/navigation-footer-toggle.js
+  - javascripts/downloads.js
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Install Resume Studio: getting-started/install.md
+      - macOS security alerts: getting-started/macos.md
+      - Optional AI providers: getting-started/ai-providers.md
+  - Guides:
+      - CV builder and templates: guides/cv-builder.md
+      - AI-assisted ATS review: guides/ats-review.md
+      - FAQ: guides/faq.md
+  - About: about.md
+
+copyright: Resume Studio is free and open source. Your career files stay on your computer.

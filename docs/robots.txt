@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fanibhushan.github.io/ResumeStudio/sitemap.xml

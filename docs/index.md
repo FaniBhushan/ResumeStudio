@@ -1,23 +1,18 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f7f8f4">
-    <meta name="description" content="Build and tailor your CV and cover letters in a private, local workspace with Resume Studio.">
-    <title>Resume Studio — your experience, clearly told</title>
-    <link rel="icon" href="assets/resume-studio-logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <header class="topbar wrap">
+---
+title: Free AI-assisted CV builder and ATS checker
+description: Build a CV and cover letter for free with Resume Studio. Use the optional AI-assisted ATS checker to compare your CV with a job description and review matching terms and possible gaps.
+---
+
+<div class="marketing-home-content">
+<header class="topbar wrap">
       <a class="brand" href="#top" aria-label="Resume Studio home">
         <img src="assets/resume-studio-logo.svg" alt="Resume Studio">
       </a>
       <nav aria-label="Main navigation">
-        <a href="#install-guide">Install guide</a>
-        <a href="#faq">FAQ</a>
-        <a href="#how-it-works">How it works</a>
+        <a href="getting-started/install/">Install guide</a>
+        <a href="guides/faq/">FAQ</a>
+        <a href="guides/ats-review/">ATS review</a>
+        <a href="getting-started/ai-providers/">AI setup</a>
         <a href="https://github.com/FaniBhushan/ResumeStudio">Source code <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
@@ -27,7 +22,7 @@
         <div class="hero-copy">
           <p class="eyebrow"><span class="status-dot"></span> OPEN SOURCE · LOCAL FIRST</p>
           <h1>Your experience,<br><span>clearly told.</span></h1>
-          <p class="intro">Build a thoughtful CV, tailor it to a role, and write a matching cover letter — in one calm, private workspace on your computer.</p>
+          <p class="intro">Build a thoughtful CV, tailor it to a role, and write a matching cover letter in a private workspace on your computer. Resume Studio is a free, open-source CV builder with optional AI-assisted ATS review.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#downloads">Download installers <span aria-hidden="true">↓</span></a>
             <a class="button button-star" href="https://github.com/FaniBhushan/ResumeStudio">Like Resume Studio? Star it on GitHub <span aria-hidden="true">★ ↗</span></a>
@@ -185,7 +180,7 @@
           <article class="feature-card">
             <div class="feature-number">02</div>
             <h3>Tailor with care</h3>
-            <p>Review role-specific suggestions and alignment notes. You decide what to change; nothing is accepted for you.</p>
+            <p>Review role-specific suggestions, keyword alignment, and evidence gaps. You decide what to change; nothing is accepted for you.</p>
           </article>
           <article class="feature-card">
             <div class="feature-number">03</div>
@@ -203,7 +198,7 @@
             <h2>Your career story belongs to you.</h2>
             <p>Resume Studio runs locally. Your career notes and generated files are stored on your computer. Optional AI features use a provider CLI you have installed and signed in to.</p>
           </div>
-          <a class="text-link" href="https://github.com/FaniBhushan/ResumeStudio#quick-start">See how it works <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="guides/faq/">Read the FAQ <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
@@ -220,55 +215,4 @@
       <span>Made for people building their next chapter.</span>
       <a href="https://github.com/FaniBhushan/ResumeStudio">GitHub <span aria-hidden="true">↗</span></a>
     </footer>
-    <script>
-      (async () => {
-        const status = document.getElementById('release-status');
-        const grid = document.getElementById('download-grid');
-        const releasesUrl = 'https://api.github.com/repos/FaniBhushan/ResumeStudio/releases/latest';
-        try {
-          const response = await fetch(releasesUrl, { headers: { Accept: 'application/vnd.github+json' } });
-          if (!response.ok) throw new Error('No release found');
-          const release = await response.json();
-          const assets = release.assets.filter((asset) => /\.(exe|dmg|appimage)$/i.test(asset.name));
-          if (!assets.length) throw new Error('No installer assets found');
-          const order = ['windows', 'macos-arm64', 'macos-x64', 'linux'];
-          const platform = (name) => {
-            const normalized = name.toLowerCase();
-            if (normalized.includes('windows')) return 'windows';
-            if (normalized.includes('macos-arm64')) return 'macos-arm64';
-            if (normalized.includes('macos-x64')) return 'macos-x64';
-            if (normalized.includes('linux')) return 'linux';
-            return 'other';
-          };
-          assets.sort((a, b) => order.indexOf(platform(a.name)) - order.indexOf(platform(b.name)));
-          status.textContent = `Latest release: ${release.tag_name}`;
-          for (const asset of assets) {
-            const link = document.createElement('a');
-            link.className = 'download-card';
-            link.href = asset.browser_download_url;
-            link.setAttribute('download', asset.name);
-            const label = document.createElement('span');
-            label.className = 'download-platform';
-            const name = asset.name.toLowerCase();
-            label.textContent = name.includes('windows') ? 'Windows' : name.includes('macos-arm64') ? 'macOS · Apple silicon' : name.includes('macos-x64') ? 'macOS · Intel' : name.includes('linux') ? 'Linux' : 'Installer';
-            const filename = document.createElement('span');
-            filename.className = 'download-filename';
-            filename.textContent = asset.name;
-            const size = document.createElement('span');
-            size.className = 'download-size';
-            size.textContent = `${(asset.size / (1024 * 1024)).toFixed(1)} MB · Download ↗`;
-            link.append(label, filename, size);
-            grid.append(link);
-          }
-        } catch {
-          status.textContent = 'No installer release is available yet.';
-          const link = document.createElement('a');
-          link.className = 'text-link';
-          link.href = 'https://github.com/FaniBhushan/ResumeStudio/releases';
-          link.textContent = 'Check the GitHub Releases page';
-          grid.append(link);
-        }
-      })();
-    </script>
-  </body>
-</html>
+</div>
