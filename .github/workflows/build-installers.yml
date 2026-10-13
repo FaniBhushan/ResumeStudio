@@ -71,8 +71,9 @@ jobs:
           APPLE_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
         run: |
           mkdir -p dist-installer
-          app_path="dist/ResumeStudio.app"
+          app_path="$RUNNER_TEMP/ResumeStudio.app"
           dmg_path="dist-installer/ResumeStudio-${APP_VERSION}-${{ matrix.artifact }}.dmg"
+          ditto "dist/ResumeStudio.app" "$app_path"
           signing_values=("$MACOS_CERTIFICATE_P12" "$MACOS_CERTIFICATE_PASSWORD" "$MACOS_SIGNING_IDENTITY" "$APPLE_API_KEY_P8_BASE64" "$APPLE_API_KEY_ID" "$APPLE_API_ISSUER_ID")
           configured_values=0
           for value in "${signing_values[@]}"; do
@@ -99,7 +100,9 @@ jobs:
             codesign --verify --deep --strict --verbose=2 "$app_path"
             security delete-keychain "$keychain_path"
           else
-            echo "Apple signing/notarization secrets are not configured; building an unsigned macOS installer."
+            echo "Apple signing/notarization secrets are not configured; applying an ad-hoc signature for bundle integrity."
+            codesign --force --deep --sign - "$app_path"
+            codesign --verify --deep --strict --verbose=2 "$app_path"
           fi
           hdiutil create -volname "Resume Studio" -srcfolder "$app_path" -ov -format UDZO "$dmg_path"
           if [[ "$configured_values" -eq "${#signing_values[@]}" ]]; then

@@ -15,6 +15,7 @@
         <img src="assets/resume-studio-logo.svg" alt="Resume Studio">
       </a>
       <nav aria-label="Main navigation">
+        <a href="#install-guide">Install guide</a>
         <a href="#how-it-works">How it works</a>
         <a href="https://github.com/FaniBhushan/ResumeStudio">Source code <span aria-hidden="true">↗</span></a>
       </nav>
@@ -63,6 +64,43 @@
           <p class="release-status" id="release-status" aria-live="polite">Loading the latest release…</p>
           <div class="download-grid" id="download-grid"></div>
           <a class="text-link release-link" href="https://github.com/FaniBhushan/ResumeStudio/releases">View all releases on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="install-guide wrap" id="install-guide" aria-labelledby="install-guide-title">
+        <div class="section-heading">
+          <p class="eyebrow">GETTING STARTED</p>
+          <h2 id="install-guide-title">Install on your computer</h2>
+          <p>Choose the installer for your operating system. Resume Studio runs locally; your documents stay on your computer.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-number">WINDOWS</div>
+            <h3>Run the installer</h3>
+            <p>Download the Windows setup file and follow its prompts. Windows may show SmartScreen because the installer is not signed. Continue only when the download came from this project's Releases page.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">macOS</div>
+            <h3>Move it to Applications</h3>
+            <p>Choose Apple silicon or Intel, open the DMG, and drag Resume Studio into Applications. This free release is not notarized, so macOS may say it cannot check the app for malicious software. After trying to open it, go to <strong>System Settings → Privacy &amp; Security</strong>, find the Resume Studio message under Security, choose <strong>Open Anyway</strong>, then confirm.</p>
+            <p>If macOS says the app is damaged and moved it to the Bin, download the newest release from this page; that message indicates an older or invalid app bundle.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">LINUX</div>
+            <h3>Make the AppImage executable</h3>
+            <p>In a terminal, go to the download folder and run <code>chmod +x ResumeStudio-*.AppImage</code>, then launch it with <code>./ResumeStudio-*.AppImage</code>. Some distributions require FUSE 2 compatibility libraries.</p>
+          </article>
+        </div>
+        <div class="cli-guide">
+          <p class="eyebrow">OPTIONAL AI FEATURES</p>
+          <h3>Install a provider CLI</h3>
+          <p>Install Node.js and npm, then choose a provider. Open its command once to sign in, then restart Resume Studio from a terminal where that command is available on your <code>PATH</code>.</p>
+          <div class="cli-list">
+            <article><h4>OpenAI Codex</h4><code>npm install -g @openai/codex@latest</code><p>Then run <code>codex</code> and follow the sign-in prompts.</p><a href="https://developers.openai.com/codex/cli/">Codex CLI setup ↗</a></article>
+            <article><h4>Google Gemini CLI</h4><code>npm install -g @google/gemini-cli</code><p>Then run <code>gemini</code> and choose an authentication option.</p><a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.mdx">Gemini CLI setup ↗</a></article>
+            <article><h4>Anthropic Claude Code</h4><code>npm install -g @anthropic-ai/claude-code</code><p>Then run <code>claude</code> and follow the authentication prompts.</p><a href="https://docs.anthropic.com/en/docs/claude-code/getting-started">Claude Code setup ↗</a></article>
+          </div>
+          <p class="cli-note">Provider usage may require a provider account, subscription, or API billing. Resume Studio does not include provider access.</p>
         </div>
       </section>
 
