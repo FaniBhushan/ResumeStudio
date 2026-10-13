@@ -1,4 +1,4 @@
-name: Deploy documentation site
+name: Build and deploy documentation
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "docs/**"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 
@@ -21,16 +23,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check static site files
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
+      - name: Install documentation dependencies
+        run: python -m pip install -r requirements-docs.txt
+      - name: Build site
+        run: mkdocs build --strict
+      - name: Check sitemap and crawler rules
         run: |
-          test -s docs/index.html
-          test -s docs/styles.css
-          test -s docs/google668895a958c9ac9b.html
-          grep -Fx "Sitemap: https://fanibhushan.github.io/ResumeStudio/sitemap.txt" docs/robots.txt
+          test -s site/sitemap.txt
+          grep -Fx "Sitemap: https://fanibhushan.github.io/ResumeStudio/sitemap.txt" site/robots.txt
+          test -s site/about.html
+          test -s site/getting-started/install.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: docs
+          path: site
 
   deploy:
     environment:
