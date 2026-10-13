@@ -18,7 +18,7 @@ if (sidebar) {
   const setCollapsed = (collapsed) => {
     siteRoot.classList.toggle("nav-collapsed", collapsed);
     try {
-      localStorage.setItem("resumeStudioNavigationCollapsed", String(collapsed));
+      localStorage.setItem("resumeStudioNavigationCollapsedV2", String(collapsed));
     } catch (_) {}
     updateToggle();
   };
