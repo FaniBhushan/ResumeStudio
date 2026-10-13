@@ -47,6 +47,8 @@ Get the latest installers from the [download page](https://fanibhushan.github.io
 
 **Closing the desktop app:** Quit Resume Studio from its Dock (macOS), taskbar (Windows), or application menu (Linux). Closing the browser tab alone does not stop the local server.
 
+**FAQ — Why does clicking the app appear to do nothing?** Resume Studio may already be running in the background and using its local port. Check for an open page at `http://127.0.0.1:8501`; otherwise quit the existing app process in your system’s app or process manager, then launch it again.
+
 > **macOS warning — read the exact alert.** This free app is ad-hoc signed, not notarized by Apple. For **“Apple cannot check it for malicious software,”** try opening it, then choose **System Settings → Privacy & Security → Open Anyway** and confirm only if you trust this GitHub release. For **“app is damaged and moved to the Bin,” stop**: Apple says this can indicate corruption, alteration, or a malware block. Do not override that alert or disable macOS checks. See [Apple’s guidance](https://support.apple.com/en-ie/102445) and the [illustrated macOS guide](https://fanibhushan.github.io/ResumeStudio/#install-guide).
 
 ### Optional AI command-line tools

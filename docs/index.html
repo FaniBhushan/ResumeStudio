@@ -16,6 +16,7 @@
       </a>
       <nav aria-label="Main navigation">
         <a href="#install-guide">Install guide</a>
+        <a href="#faq">FAQ</a>
         <a href="#how-it-works">How it works</a>
         <a href="https://github.com/FaniBhushan/ResumeStudio">Source code <span aria-hidden="true">↗</span></a>
       </nav>
@@ -132,6 +133,27 @@
             <article><h4>Anthropic Claude Code</h4><code>npm install -g @anthropic-ai/claude-code</code><p>Then run <code>claude</code> and follow the authentication prompts.</p><a href="https://docs.anthropic.com/en/docs/claude-code/getting-started">Claude Code setup ↗</a></article>
           </div>
           <p class="cli-note">Provider usage may require a provider account, subscription, or API billing. Resume Studio does not include provider access.</p>
+        </div>
+      </section>
+
+      <section class="faq-section wrap" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="eyebrow">QUICK ANSWERS</p>
+          <h2 id="faq-title">Desktop app FAQ</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Does closing the browser tab quit Resume Studio?</summary>
+            <p>No. The browser displays the local app, while Resume Studio continues running in the background and keeps its local server open.</p>
+          </details>
+          <details>
+            <summary>How do I stop Resume Studio completely?</summary>
+            <p>Quit the app from your operating system: use <strong>Quit</strong> from its Dock icon on macOS, the taskbar or Task Manager on Windows, or your application menu or System Monitor on Linux.</p>
+          </details>
+          <details>
+            <summary>Why does clicking the app appear to do nothing?</summary>
+            <p>A Resume Studio process may already be running and using its local port. Check for an existing app page at <code>http://127.0.0.1:8501</code>. If it is not open, quit the existing Resume Studio process in your system’s app or process manager, then launch it again.</p>
+          </details>
         </div>
       </section>
 
