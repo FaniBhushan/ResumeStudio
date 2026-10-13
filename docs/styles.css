@@ -105,6 +105,21 @@ h3 { margin-bottom: 10px; font-family: Manrope, sans-serif; font-size: 17px; let
 .install-guide .feature-card { min-height: 0; }
 .install-guide .feature-card p { max-width: none; margin-top: 10px; }
 .install-guide code { overflow-wrap: anywhere; border-radius: 4px; background: #f1f4ef; padding: 2px 5px; font-size: .92em; }
+.mac-warning { margin-top: 20px; padding: 30px; border: 2px solid #b54708; border-radius: 9px; background: #fff9f2; }
+.mac-warning > .eyebrow { margin-bottom: 9px; color: #9a3412; font-weight: 800; }
+.mac-warning > h3 { margin-bottom: 8px; color: #642d0b; font-size: 21px; }
+.mac-warning-intro, .mac-warning-source { color: #68452f; font-size: 13px; line-height: 1.65; }
+.mac-warning-intro { margin: 0 0 22px; }
+.mac-warning-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.mac-warning-grid > div { min-width: 0; padding: 20px; border: 1px solid #ead7c7; border-radius: 7px; background: #fff; }
+.mac-warning-grid h4 { margin: 0 0 10px; color: var(--ink); font-family: Manrope, sans-serif; font-size: 14px; line-height: 1.5; }
+.mac-warning-grid p, .mac-warning-grid ol { margin: 0 0 17px; color: #5c635d; font-size: 12px; line-height: 1.7; }
+.mac-warning-grid ol { padding-left: 20px; }
+.mac-warning-grid figure { margin: 16px 0 0; }
+.mac-warning-grid img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; }
+.mac-warning-grid figcaption { margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.mac-warning-source { margin: 18px 0 0; font-size: 11px; }
+.mac-warning-source a { color: var(--green); font-weight: 700; }
 .cli-guide { margin-top: 42px; padding: 32px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
 .cli-guide > .eyebrow { margin-bottom: 12px; }
 .cli-guide > p:not(.eyebrow) { max-width: 760px; color: var(--muted); font-size: 13px; line-height: 1.7; }
@@ -157,6 +172,9 @@ h3 { margin-bottom: 10px; font-family: Manrope, sans-serif; font-size: 17px; let
   .feature-card { min-height: auto; padding: 22px; }
   .feature-number { margin-bottom: 17px; }
   .install-guide { padding-top: 65px; padding-bottom: 70px; }
+  .mac-warning { padding: 21px; }
+  .mac-warning-grid { grid-template-columns: 1fr; gap: 12px; }
+  .mac-warning-grid > div { padding: 17px; }
   .cli-guide { margin-top: 22px; padding: 22px; }
   .cli-list { grid-template-columns: 1fr; gap: 10px; }
   .cli-list p { min-height: 0; }
