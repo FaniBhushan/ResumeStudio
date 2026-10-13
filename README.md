@@ -34,27 +34,41 @@ Open the local address Streamlit prints. In **CV Builder**, start with the blank
 
 ## Desktop installers
 
-Windows, macOS, and Linux installers are built by the **Build desktop installers** GitHub Actions workflow. It currently targets Windows x64, macOS Intel and Apple silicon, and Linux x86_64. To publish downloads, push a version tag such as `v1.0.0`; the workflow builds a Windows setup `.exe`, macOS `.dmg` images, and a Linux `.AppImage`, then attaches them to a GitHub Release. The [GitHub Pages download section](https://fanibhushan.github.io/ResumeStudio/) lists assets from the latest release, and the [Releases page](https://github.com/FaniBhushan/ResumeStudio/releases) lists all published versions. Running the workflow manually builds artifacts for download from Actions without publishing a release.
+### Downloads
 
-The app and PDF renderer are bundled. Optional AI features still require a separately installed and signed-in Codex CLI, Gemini CLI, or Claude Code. Windows installers are unsigned. macOS installers receive an ad-hoc signature to preserve the app bundle's integrity, but they are not trusted by Apple because they are not signed with a paid Developer ID certificate or notarized. On first open, macOS may say it cannot check the app for malicious software; use **System Settings → Privacy & Security → Open Anyway** after trying to open it. This should not show the separate “app is damaged” message; if it does, make sure you downloaded the newest release. To enable trusted macOS installers, configure all six secrets: `MACOS_CERTIFICATE_P12` (base64-encoded Developer ID Application `.p12` certificate), `MACOS_CERTIFICATE_PASSWORD`, `MACOS_SIGNING_IDENTITY` (the certificate's identity name), `APPLE_API_KEY_P8_BASE64` (base64-encoded App Store Connect API key), `APPLE_API_KEY_ID`, and `APPLE_API_ISSUER_ID`. The workflow then signs the app and notarizes and staples each DMG. A partial configuration fails the macOS job so it cannot silently publish a partially signed build.
+Get the latest installers from the [download page](https://fanibhushan.github.io/ResumeStudio/) or [GitHub Releases](https://github.com/FaniBhushan/ResumeStudio/releases).
 
-### Install and run
+| Platform | Installer | Install |
+| --- | --- | --- |
+| Windows x64 | `.exe` | Run setup. SmartScreen may warn because the installer is unsigned. |
+| macOS Apple silicon | `macOS-arm64.dmg` | Open the DMG; drag the app to **Applications**. |
+| macOS Intel | `macOS-x64.dmg` | Open the DMG; drag the app to **Applications**. |
+| Linux x86_64 | `.AppImage` | Run `chmod +x ResumeStudio-*.AppImage`, then `./ResumeStudio-*.AppImage`. FUSE 2 may be required. |
 
-- **Windows:** Download the Windows `.exe` and run it. Windows may show a SmartScreen warning because the installer is not code signed; continue only if you downloaded it from this project's Releases page.
-- **macOS:** Download the image for your Mac (Apple silicon or Intel), open the `.dmg`, and drag Resume Studio into **Applications**. Open it once. For the “Apple cannot check it for malicious software” message, open **System Settings → Privacy & Security**, scroll to Security, and choose **Open Anyway** for Resume Studio. Confirm the prompt. This first-open override is needed because this free release is not notarized. If macOS says the app is damaged and moved it to the Bin, download the latest release; that indicates an older or invalid bundle.
-- **Linux:** Download the `.AppImage`, make it executable (`chmod +x ResumeStudio-*.AppImage`), then run it (`./ResumeStudio-*.AppImage`). You may need FUSE 2 compatibility libraries for your distribution.
+**macOS first open:** This free app is ad-hoc signed but not notarized. If macOS says it cannot check the app for malicious software, try opening it, then choose **System Settings → Privacy & Security → Open Anyway** and confirm. If macOS says the app is damaged and moved it to the Bin, download the latest release again.
 
 ### Optional AI command-line tools
 
-AI features are optional. Install Node.js/npm first, then install a provider and launch its command once to complete sign-in. Restart Resume Studio from a terminal where that command is available on `PATH`.
+AI support is optional. See [Optional AI providers](#optional-ai-providers) for install commands, sign-in steps, and provider requirements.
 
-```bash
-npm install -g @openai/codex@latest
-npm install -g @google/gemini-cli
-npm install -g @anthropic-ai/claude-code
+### Release flow
+
+```mermaid
+flowchart LR
+    A[Push version tag] --> B[GitHub Actions builds installers]
+    B --> C[GitHub Release]
+    C --> D[Pages download section]
+    E[Run workflow manually] --> F[Actions artifacts only]
 ```
 
-Follow each provider's current setup guide: [Codex CLI](https://developers.openai.com/codex/cli/), [Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.mdx), and [Claude Code](https://docs.anthropic.com/en/docs/claude-code/getting-started). Provider access may require an account, plan, or API billing depending on the provider and authentication option you choose.
+The workflow builds Windows x64, macOS Intel and Apple silicon, and Linux x86_64. To create a public release, push a version tag such as `v0.2.0`. Manual runs create downloadable Actions artifacts without publishing a release.
+
+<details>
+<summary>Enable trusted macOS releases</summary>
+
+Apple Developer ID signing and notarization credentials are required. Configure all six repository secrets: `MACOS_CERTIFICATE_P12`, `MACOS_CERTIFICATE_PASSWORD`, `MACOS_SIGNING_IDENTITY`, `APPLE_API_KEY_P8_BASE64`, `APPLE_API_KEY_ID`, and `APPLE_API_ISSUER_ID`. The workflow signs and notarizes each DMG. Partial configuration fails the macOS build.
+
+</details>
 
 **Device support:** Resume Studio is designed for use in a desktop or laptop browser. The interface is not currently optimized for mobile screens.
 
